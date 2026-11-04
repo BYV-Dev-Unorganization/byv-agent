@@ -115,6 +115,8 @@ Flags must be validated against the current command. Do not accept a flag and si
 - /status
 - /doctor
 - /debug-log
+- /schedule
+- /jobs
 
 The slash catalog is a byv-agent UX target. Aliases that mimic Claude Code names must be behavior-tested and must not imply support for behavior that has not been implemented.
 
