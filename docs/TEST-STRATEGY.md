@@ -8,6 +8,9 @@ No release claim should be based only on a successful manual demo.
 
 ## 2. Test layers
 
+### Unit tests (Bun test runner)
+Use `bun test` for unit and integration tests unless a verified exception is documented.
+
 ### Unit tests
 - Config parsing and precedence.
 - Provider request construction and stream parsing.
@@ -190,6 +193,8 @@ Compare metrics by provider/model/profile and agent version. Avoid ranking model
 ## 9. CI gates
 
 Pull request checks:
+- Bun version and lockfile validation;
+- bun install --frozen-lockfile;
 - formatting;
 - lint;
 - type checking;
@@ -206,3 +211,8 @@ Release gates:
 - coding evaluations;
 - security review;
 - documentation and release-note audit.
+
+
+## 10. Bun compiled artifact tests
+
+For each supported release target, run the standalone binary in a clean environment without Node.js or Bun installed. Verify CLI help, provider config parsing, SQLite initialization, project file loading, Skills discovery, MCP configuration parsing, plugin discovery (without executing plugin code), subprocess behavior, external asset lookup, and graceful shutdown. Keep a separate device-level test plan for Android wrapper builds.
