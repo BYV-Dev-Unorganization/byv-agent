@@ -57,6 +57,7 @@ Cross-cutting systems:
 - Security and secret redaction
 - Observability and audit
 - Background job supervisor
+- Side Question Service with independent provider requests and context snapshots
 
 ## 4. Prompt assembly boundary
 
@@ -83,33 +84,33 @@ The interactive TUI follows docs/TUI-UX-SPECIFICATION.md and uses OpenTUI Core. 
 
 ### 3.2 Session controller
 
-Owns session lifecycle, active model/effort/mode, user steering, queue semantics, interrupt handling, transcript append, session resume, and state recovery.
+Owns session lifecycle, active model/effort/mode, user steering, queue semantics, interrupt handling, transcript append, session resume, and state recovery. It routes `/btw` requests to the isolated Side Question Service instead of appending them to the main queue.
 
-### 3.3 Core orchestrator
+### 3.4 Core orchestrator
 
 Owns the model/tool loop and task state transitions. It must not perform filesystem or process effects directly. It requests tools through the registry and execution dispatcher.
 
-### 3.4 Provider manager
+### 3.6 Provider manager
 
 Owns provider configuration, adapters, capability lookup, request construction, stream parsing, usage extraction, retry classification, routing, and fallback. It returns canonical events.
 
-### 3.5 Context engine
+### 3.7 Context engine
 
 Owns instruction discovery, retrieval, token estimates, context assembly, context provenance, and budget calculation.
 
-### 3.6 Compaction engine
+### 3.8 Compaction engine
 
 Owns history selection, summary creation, compaction validation, active-context replacement, event emission, and recovery. It does not delete the raw transcript.
 
-### 3.7 Tool execution dispatcher
+### 3.9 Tool execution dispatcher
 
 Owns schema validation, tool ID correlation, permission check, approval request, runner selection, timeouts, cancellation, output capture, and result persistence.
 
-### 3.8 Extension manager
+### 3.10 Extension manager
 
 Owns Skills, Plugins, Agents, Hooks, MCP configuration, marketplace sources, extension namespaces, validation, trust state, and reload.
 
-### 3.9 Execution runners
+### 3.11 Execution runners
 
 Implement a common runner contract:
 - Local process runner.
@@ -327,6 +328,7 @@ SQLite is the initial durable store. Use migrations and transactions.
 
 Suggested entities:
 - sessions
+- side_questions (separate from messages/turns; excluded from normal prompt assembly)
 - turns
 - messages
 - content_blocks
@@ -396,7 +398,7 @@ Remote workers authenticate with short-lived credentials. Never transmit provide
 
 ## 14. Observability
 
-All major operations should carry session_id, turn_id, task_id, agent_id, provider_request_id, tool_call_id, and trace_id where applicable.
+All major operations should carry session_id, turn_id, task_id, agent_id, provider_request_id, tool_call_id, side_question_id, and trace_id where applicable.
 
 Log:
 - provider selected and capability mapping;
