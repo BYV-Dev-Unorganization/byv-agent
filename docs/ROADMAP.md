@@ -237,7 +237,24 @@ Exit gate:
 - Queued prompts are ordered and can be cancelled.
 - Browser tasks respect user authorization and network restrictions.
 
-## Phase 13 — Sandbox and remote execution
+## Phase 13 — Scheduler and integration API
+
+Deliverables:
+- One-time and recurring scheduled tasks.
+- Timezone-aware schedule parsing.
+- Event-triggered jobs and webhooks.
+- Job deduplication, idempotency, concurrency policy, and missed-run handling.
+- Approval policy for unattended side-effecting tasks.
+- Job history, logs, notifications, and budgets.
+- Local authenticated API and event stream for approved session/task control.
+- API versioning and access scopes.
+
+Exit gate:
+- Scheduled jobs respect permissions, budget, sandbox, and audit systems.
+- Duplicate or overlapping jobs follow explicit idempotency and concurrency rules.
+- API operations are authenticated, scoped, and auditable.
+
+## Phase 14 — Sandbox and remote execution
 
 Deliverables:
 - Container runner.
@@ -254,7 +271,7 @@ Exit gate:
 - A task can run in an isolated runner with scoped workspace and credentials.
 - Remote failures do not corrupt local session or transcript state.
 
-## Phase 14 — Release hardening and ecosystem
+## Phase 15 — Release hardening and ecosystem
 
 Deliverables:
 - Install and upgrade packaging.
