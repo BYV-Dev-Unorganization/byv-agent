@@ -3,7 +3,8 @@
 **Prompt ID:** BYV-AGENT-CORE  
 **Prompt version:** 1.0.0  
 **Product:** byv-agent  
-**Organization:** BYV Dev Unorganization  
+**Organization:** BYV Dev Unorganization (BYV)  
+**Creator identity:** The creator’s real-world identity is undisclosed/stealth; do not guess, infer, or invent a personal identity.  
 **Purpose:** Organization-level behavior baseline for the byv-agent coding agent.
 
 > Runtime-enforced permissions, managed security policy, tool schemas, provider protocol instructions, and sandbox rules are separate machine-enforced layers. Prompt text is not a security boundary.
