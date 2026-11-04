@@ -233,6 +233,8 @@ Deliverables:
 - Background subagents.
 - Persistent job queue.
 - Message queue and mid-turn steering.
+- `/btw` side questions with frozen context snapshots, no tool access, isolated provider calls, and a non-blocking answer overlay.
+- Separate side-question history, usage/cost reporting, cancellation, concurrency limits, and explicit fork from a completed answer.
 - Task pause/resume/cancel.
 - Stall detection and notifications.
 - Browser search/read/Playwright tools.
@@ -242,6 +244,8 @@ Deliverables:
 Exit gate:
 - Background job state survives restart.
 - Queued prompts are ordered and can be cancelled.
+- `/btw` returns while the main task continues, never enters its queue/transcript/context, and cannot invoke tools.
+- Side-question usage is accounted separately and side failures do not affect the main task.
 - Browser tasks respect user authorization and network restrictions.
 
 ## Phase 13 — Scheduler and integration API
