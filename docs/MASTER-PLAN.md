@@ -10,6 +10,16 @@ byv-agent is a local-first, model-agnostic AI coding agent and extensible agent 
 
 The project is not merely a chat UI around an LLM. It is a controlled execution system composed of a provider layer, agent runtime, context manager, tools, extension loaders, persistence, security policy, and user interface.
 
+## 2. Product ownership and licensing
+
+- Owner: BYV Dev Unorganization (BYV).
+- License model: BYV Restricted Use License (BYV-RUL), proprietary and source-available; not an open-source license.
+- BYV intends to permit use of official, unmodified releases while retaining control over source modifications and derivative works.
+- External contributions are closed unless BYV explicitly invites or authorizes them.
+- Final permissions for personal/commercial use and redistribution of unmodified binaries must be stated in the approved root LICENSE before public release.
+- Third-party components retain their own license obligations.
+- See [LICENSING.md](LICENSING.md) for the policy and unresolved legal terms.
+
 ## 2. Product requirements and principles
 
 ### 2.1 User requirements
