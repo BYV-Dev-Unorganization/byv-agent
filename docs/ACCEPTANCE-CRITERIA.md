@@ -242,3 +242,31 @@ A release candidate is acceptable only when:
 - The release process records target triple, Bun version, artifact checksum, and signing status.
 - Unsupported target platforms are not advertised.
 - CLI source development and release artifacts do not require users to install Node.js.
+
+
+## 21. BITE terminal UI acceptance
+
+- Header identifies workspace, session, provider/model, mode, effort, and permission mode without exposing secrets.
+- Wide, medium, narrow, and short terminal layouts are usable.
+- Conversation, task, activity, files, agents, jobs, and composer views use consistent state.
+- Thinking indicator is based on public activity events and never renders hidden chain-of-thought.
+- Task status and progress come from the Task Manager, not assistant text.
+- "Agent claims complete" and "runtime verified complete" are distinct.
+- Tool cards show real start, finish, error, exit code, and duration events.
+- Approval view shows exact command/tool, working directory, target, risk, and grant scope.
+- Context usage labels provider-reported and estimated numbers separately.
+- Auto-compaction state and result are visible.
+- Message queue and interrupt actions are distinct.
+- Keyboard navigation, resize, paste, scroll, focus, and shutdown work on the supported terminal matrix.
+- Terminal modes are restored after normal exit, Ctrl+C, render failure, and provider/tool failure.
+- OpenTUI native assets load in source and standalone binaries on each advertised OS/architecture/libc target.
+- Plain line-oriented CLI fallback works when the terminal cannot initialize.
+
+## 22. BYV system prompt acceptance
+
+- Official prompt has a version and source file under prompts/.
+- Prompt is assembled as an organization-level behavior layer, not mixed with tool schemas or secrets.
+- Provider adapter maps canonical instruction roles correctly for each supported protocol.
+- Project instructions and Skills do not override managed security policy.
+- Prompt changes pass regression evaluations for task following, safe tool use, coding quality, truthful status, and final reporting.
+- Prompt does not request or expose hidden chain-of-thought.
