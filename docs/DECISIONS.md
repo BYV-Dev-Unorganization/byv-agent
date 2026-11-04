@@ -116,3 +116,12 @@ This file records baseline decisions. A decision can be superseded only through 
 **Rationale:** Users need to clarify information while long coding tasks continue, without interrupting or steering the active agent. A strict no-tool boundary and snapshot isolation preserve task integrity.
 
 **Consequences:** Side questions require independent provider requests, request IDs, cancellation/timeouts, concurrency limits, persistence, and usage/cost accounting. Side-question usage is separate (not free), provider rate limits still apply, and a deliberate fork is required to promote an exchange into a new tool-enabled session. See [Side Questions](SIDE-QUESTIONS.md).
+
+
+## ADR-015 — BYV Restricted Use License and closed contributions
+
+**Decision:** byv-agent uses a custom **BYV Restricted Use License (BYV-RUL)**. The project is proprietary and source-available, not open source. BYV intends to permit use of official, unmodified releases while retaining control over source modification and derivative works. External contributions are closed unless BYV expressly invites or authorizes them.
+
+**Rationale:** BYV wants users to be able to use the product without granting general rights to modify, fork, redistribute source, or contribute code to the project.
+
+**Consequences:** Do not use MIT, Apache-2.0, GPL, or another OSI-approved license as the project license. Maintain the policy in [LICENSING.md](LICENSING.md). The final root `LICENSE` must explicitly define permitted user classes, personal/commercial use, and binary redistribution before public release. Third-party dependency licenses remain independently applicable. Do not accept public contributions by default.
