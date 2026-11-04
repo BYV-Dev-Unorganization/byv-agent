@@ -20,7 +20,7 @@ Runtime requirements:
 - Avoid assuming that a source-level dependency will be bundled correctly; test dynamic imports, package assets, subprocess launch, and plugin loading in compiled builds.
 - Bun is not assumed to exist on end-user machines when distributing a standalone CLI.
 
-The agent core must not depend on a Node.js executable or npm/yarn/pnpm being installed on the target machine.
+The agent core must not depend on a Node.js executable or npm/yarn/pnpm being installed on the target machine. Released standalone CLI binaries embed Bun; they do not embed Git, Docker, browser engines, language servers, or arbitrary system tools.
 
 ## 3. Logical topology
 
