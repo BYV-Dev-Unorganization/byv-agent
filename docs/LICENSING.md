@@ -1,82 +1,57 @@
 # byv-agent Licensing and Contribution Policy
 
 **Owner:** BYV Dev Unorganization (BYV)  
-**License model:** BYV Restricted Use License (BYV-RUL)  
-**Classification:** Proprietary, source-available; not an open-source license  
-**Status:** License model approved; final grant wording pending distribution-scope confirmation and legal review.
+**License:** BYV Restricted Use License (BYV-RUL) v1.0  
+**Classification:** Proprietary software with a restricted binary-use grant; not open source  
+**Contribution status:** Closed to public contributions
 
-## 1. Intent
+## 1. Approved distribution model
 
-byv-agent is developed and owned by BYV Dev Unorganization (BYV). BYV intends to let users run officially distributed copies of the software while retaining control over the source code and derivative works.
+BYV intends to allow individuals and organizations to use official, unmodified releases of byv-agent for:
+- personal use; and
+- internal business operations through authorized users.
 
-This is not MIT, Apache-2.0, GPL, or another OSI-approved open-source license. Do not describe the project as open source.
+The permission is limited to binaries obtained through channels operated or expressly authorized by BYV. Use remains subject to applicable purchase, subscription, or access conditions communicated by BYV.
 
-## 2. Intended user permissions
+**Redistribution is not permitted.** Users may not mirror, resell, lend, sublicense, publish, or share copies of official binaries or source code. Commercial use means use inside the user's own organization; it does not automatically permit reselling the Software, distributing it to customers, or offering it as a third-party hosted service.
 
-The intended license grant is limited to use of an official, unmodified release of byv-agent, subject to the final BYV-RUL terms.
+## 2. Source code and modifications
 
-The final license must explicitly state:
-- who may use the software (individuals, organizations, or both);
-- whether personal and commercial use are permitted;
-- which official distribution channels and artifacts are authorized;
-- whether redistribution of unmodified binaries is permitted;
-- whether use is limited to a particular number of users, devices, or environments, if BYV chooses such limits.
+- Source code remains proprietary and under BYV's control.
+- Users receive no permission to modify, patch, adapt, translate, fork, or create derivative versions.
+- Users may not redistribute or disclose BYV source code or non-public development materials.
+- No reverse-engineering right is granted, except where an applicable law does not permit such a restriction.
+- Do not describe the project as open source.
 
-No permission should be implied beyond the final written license grant.
+## 3. Contributions
 
-## 3. Restrictions intended by BYV
+External contributions are **closed** at this time.
 
-Unless BYV grants separate written permission, the intended restrictions are:
-- no modification, adaptation, or alteration of BYV source code;
-- no creation or distribution of derivative versions;
-- no redistribution or sublicensing of source code;
-- no reverse engineering or circumvention to the extent such restrictions are lawful and enforceable under applicable law;
-- no removal or alteration of copyright, trademark, or proprietary notices;
-- no representation that a modified or unofficial build is an official BYV release.
+- Do not advertise the repository as accepting public pull requests or community code contributions.
+- Do not accept or merge external code contributions without explicit written BYV authorization.
+- BYV may invite selected contributors under separate written agreements.
+- Repository access is not itself a license to redistribute, modify, or contribute code.
 
-The exact treatment of redistribution of unmodified official binaries is pending BYV's final decision. Do not assume it is permitted.
+## 4. Third-party components
 
-## 4. Contributions
-
-External contributions are **not open at this time**.
-
-- Do not advertise the repository as accepting public pull requests or community contributions.
-- Do not accept or merge external code contributions without explicit BYV authorization.
-- BYV may invite individual contributors under a separate written agreement, including any required intellectual-property assignment or license grant.
-- Internal BYV development remains governed by repository access controls and BYV policy.
-
-## 5. Third-party components
-
-A proprietary license for byv-agent does not override the licenses of third-party dependencies, libraries, assets, fonts, or other included components.
+BYV-RUL governs only the BYV-owned portions of byv-agent. Third-party libraries, runtimes, assets, and other components remain governed by their own licenses.
 
 Before adding a dependency:
 - identify its exact license and version;
-- verify compatibility with the intended distribution model;
-- preserve required notices and attribution;
-- include third-party notices in releases when required;
-- reject dependencies whose terms conflict with BYV's distribution or source-control requirements unless BYV explicitly approves them.
+- verify compatibility with proprietary binary distribution;
+- preserve copyright notices and required attributions;
+- include required third-party notices and license texts in releases;
+- reject conflicting terms unless BYV explicitly approves them.
 
-Do not copy code or assets from third-party projects without verifying the applicable permissions.
-
-## 6. Repository and release handling
+## 5. Repository and release handling
 
 - Keep the source repository private unless BYV explicitly changes that decision.
-- Publish only artifacts and documentation approved by BYV.
-- Do not publish source archives, source maps, debug bundles, or build artifacts that expose source unless explicitly authorized.
-- Do not commit secrets, signing keys, API credentials, or release tokens.
-- Include the final license text and applicable third-party notices with every public release.
+- Publish only official binaries and documentation approved by BYV.
+- Do not publish source archives, source maps, debug bundles, or build artifacts that expose source unless expressly authorized.
+- Never commit signing keys, API credentials, release tokens, or other secrets.
+- Include BYV-RUL and applicable third-party notices with each official distribution.
 
-## 7. Legal review and finalization
+## 6. Legal review
 
-This document records the product and engineering intent; it is not a substitute for jurisdiction-specific legal advice. Before public distribution, BYV should have the final BYV-RUL reviewed by qualified counsel.
+The root `LICENSE` file contains the current BYV-RUL text. It is a product license draft and is not a substitute for jurisdiction-specific legal advice. Before broad public or commercial distribution, BYV should have qualified counsel review enforceability, governing law, consumer/business mandatory rights, warranty/liability provisions, and any territory-specific requirements.
 
-The root `LICENSE` file must contain the final approved terms, not this planning note. Do not create a generic MIT/Apache/GPL license as a placeholder.
-
-## 8. Open decisions
-
-- Permitted user classes and whether commercial use is allowed.
-- Redistribution of unmodified official binaries.
-- Any limits on users/devices/environments.
-- Governing law, venue, warranty disclaimer, liability limitation, termination, and other legal terms.
-
-These are intentionally not invented by the implementation agent.
