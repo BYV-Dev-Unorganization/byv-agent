@@ -86,6 +86,7 @@ Suggested areas:
 - plugin/skill/agent loading;
 - hooks;
 - background jobs and scheduler;
+- sideQuestions: enabled state, optional model profile, maximum concurrency, output budget, timeout, visible history limit, and retention;
 - logging and telemetry;
 - UI and status line.
 
@@ -116,12 +117,21 @@ Example:
         "maxToolCalls": 300,
         "maxSessionCost": null
       },
+      "sideQuestions": {
+        "enabled": true,
+        "modelProfile": null,
+        "maxConcurrent": 2,
+        "maxOutputTokens": 1024,
+        "timeoutMs": 60000,
+        "visibleHistoryLimit": 5,
+        "retention": "session"
+      },
       "telemetry": {
         "enabled": false
       }
     }
 
-The values are examples, not universal defaults. Validate ranges, reject unknown critical values, and migrate schema versions explicitly.
+The values are examples, not universal defaults. Validate ranges, reject unknown critical values, and migrate schema versions explicitly. Side-question usage is billed/tracked separately and is excluded from the main task's context and transcript.
 
 ## 5. Provider and model configuration
 
