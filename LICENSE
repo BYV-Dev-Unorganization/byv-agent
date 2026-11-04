@@ -1,0 +1,155 @@
+BYV RESTRICTED USE LICENSE (BYV-RUL)
+Version 1.0
+
+Copyright (c) 2026 BYV Dev Unorganization (BYV).
+All rights reserved.
+
+IMPORTANT: THIS IS A PROPRIETARY SOFTWARE LICENSE. IT IS NOT AN OPEN-SOURCE
+LICENSE. BYV-AGENT SOURCE CODE AND OFFICIAL BUILD ARTIFACTS REMAIN THE
+PROPERTY OF BYV DEV UNORGANIZATION (BYV), EXCEPT FOR THIRD-PARTY COMPONENTS
+GOVERNED BY THEIR OWN LICENSES.
+
+By downloading, installing, accessing, or using byv-agent, you agree to the
+following terms.
+
+1. DEFINITIONS
+
+"Software" means the official, unmodified binary releases of byv-agent
+distributed by or with the express authorization of BYV, together with
+documentation expressly provided for use of those releases.
+
+"BYV" means BYV Dev Unorganization.
+
+"Authorized User" means an individual or an employee/contractor acting on
+behalf of an organization that has lawfully obtained the Software, solely
+for the permitted use described in Section 2.
+
+"Third-Party Components" means libraries, runtimes, assets, and other
+materials included with or used by the Software that are identified as
+subject to separate third-party license terms.
+
+2. LIMITED PERMITTED USE
+
+Subject to these terms and any applicable purchase, subscription, or access
+conditions communicated by BYV, BYV grants you a limited, non-exclusive,
+non-transferable, non-sublicensable license to:
+
+(a) download or obtain an official binary release from a distribution
+    channel operated or expressly authorized by BYV;
+(b) install and run an unmodified copy of that official binary for personal
+    use; and
+(c) use that official, unmodified binary for an organization's internal
+    business operations, through its Authorized Users.
+
+This license does not grant ownership of the Software or any intellectual
+property rights beyond the limited use expressly stated above.
+
+3. RESTRICTIONS
+
+Unless BYV gives prior written permission, you must not, and must not permit
+another person to:
+
+(a) modify, adapt, translate, patch, alter, or create derivative works of
+    the Software or its source code;
+(b) reverse engineer, decompile, disassemble, or attempt to derive source
+    code, underlying algorithms, or non-public interfaces, except to the
+    limited extent that an applicable law does not permit this restriction;
+(c) redistribute, publish, mirror, sublicense, sell, rent, lease, lend, or
+    otherwise make the Software or any copy available to another person;
+(d) redistribute, publish, or disclose BYV source code or non-public
+    development materials;
+(e) remove, obscure, or alter copyright, trademark, proprietary, or other
+    legal notices;
+(f) bypass license checks, access controls, or technical restrictions; or
+(g) represent an unofficial, modified, or derived build as an official
+    BYV release.
+
+The permission to use the Software for internal business operations does not
+permit you to distribute copies to customers, clients, affiliates, or other
+third parties, or to provide the Software as a hosted/managed service to
+third parties, unless BYV separately authorizes that activity in writing.
+
+4. OWNERSHIP AND RESERVATION OF RIGHTS
+
+The Software, its source code, documentation, branding, and all associated
+intellectual property rights are and remain owned by BYV or its licensors.
+All rights not expressly granted in Section 2 are reserved by BYV.
+
+No right to modify source code, create forks, publish derivative works,
+redistribute binaries, or contribute code is granted by this license.
+
+5. CONTRIBUTIONS
+
+Public contributions are not accepted at this time. This license does not
+grant permission to submit code for inclusion in the Software or to obtain
+write access to BYV repositories. Any invited contribution must be covered
+by a separate written agreement and explicit authorization from BYV.
+
+6. THIRD-PARTY COMPONENTS
+
+Third-Party Components remain subject to their own license terms. Nothing in
+this license removes or limits rights that their respective licensors grant
+under those terms. If a third-party license conflicts with a provision of
+this license as applied to that component, the third-party license controls
+for that component only.
+
+Applicable third-party notices and license texts must be retained and
+provided as required by those licenses.
+
+7. NO WARRANTY
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE SOFTWARE IS PROVIDED
+"AS IS" AND "AS AVAILABLE", WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND
+NON-INFRINGEMENT.
+
+8. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, BYV AND ITS CONTRIBUTORS
+SHALL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL,
+EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR LOSS OF PROFITS, DATA, GOODWILL,
+BUSINESS INTERRUPTION, OR OTHER INTANGIBLE LOSSES ARISING OUT OF OR
+RELATING TO THE SOFTWARE OR THIS LICENSE.
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE TOTAL LIABILITY OF
+BYV ARISING OUT OF OR RELATING TO THE SOFTWARE OR THIS LICENSE SHALL NOT
+EXCEED THE AMOUNT YOU PAID TO BYV FOR THE SOFTWARE DURING THE TWELVE (12)
+MONTHS BEFORE THE EVENT GIVING RISE TO THE CLAIM, OR, IF YOU OBTAINED THE
+SOFTWARE WITHOUT PAYMENT, THE AMOUNT OF TEN UNITED STATES DOLLARS (US$10).
+
+Some jurisdictions do not allow certain warranty exclusions or liability
+limitations. Those limitations apply only to the extent permitted by law.
+
+9. TERMINATION
+
+This license terminates automatically if you materially breach its terms.
+Upon termination, you must stop using the Software and delete or destroy
+copies in your possession or control, except where retention is required by
+applicable law. Sections concerning ownership, restrictions, warranty,
+liability, third-party components, and interpretation survive termination
+to the extent applicable.
+
+10. CHANGES TO THESE TERMS
+
+Any change to this license must be published by BYV as a new version or
+otherwise expressly agreed in writing. A new license version does not
+retroactively change the terms applicable to a copy already obtained unless
+the parties agree or applicable law requires otherwise.
+
+11. GOVERNING LAW AND MANDATORY RIGHTS
+
+The governing law, venue, and dispute-resolution terms must be specified in
+a version of this license approved for the relevant distribution territory.
+Nothing in this license excludes rights that cannot lawfully be excluded
+under applicable mandatory law.
+
+12. ENTIRE LICENSE
+
+This document states the license terms for the Software, together with any
+separate written agreement or access conditions expressly referenced by BYV.
+If a separate written agreement conflicts with this license, the separate
+agreement controls only to the extent it expressly identifies the conflicting
+term.
+
+BYV Dev Unorganization (BYV)
