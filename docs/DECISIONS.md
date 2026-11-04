@@ -107,3 +107,12 @@ This file records baseline decisions. A decision can be superseded only through 
 **Rationale:** BYV Dev Unorganization needs its own product voice, engineering workflow, provider-neutral behavior, and truthful progress/reporting standards.
 
 **Consequences:** Prompt changes require versioning and regression evaluation. The prompt cannot grant tool permissions or override managed security controls.
+
+
+## ADR-014 — Isolated read-only side questions
+
+**Decision:** Implement `/btw <question>` as an independent, single-turn side-question service. It may run concurrently with the main turn using a frozen snapshot of already-committed context, has no tool access, and is not added to the main transcript, queue, task state, memory, or compaction by default.
+
+**Rationale:** Users need to clarify information while long coding tasks continue, without interrupting or steering the active agent. A strict no-tool boundary and snapshot isolation preserve task integrity.
+
+**Consequences:** Side questions require independent provider requests, request IDs, cancellation/timeouts, concurrency limits, persistence, and usage/cost accounting. Side-question usage is separate (not free), provider rate limits still apply, and a deliberate fork is required to promote an exchange into a new tool-enabled session. See [Side Questions](SIDE-QUESTIONS.md).
