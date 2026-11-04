@@ -13,12 +13,12 @@ The project is not merely a chat UI around an LLM. It is a controlled execution 
 ## 2. Product ownership and licensing
 
 - Owner: BYV Dev Unorganization (BYV).
-- License model: BYV Restricted Use License (BYV-RUL), proprietary and source-available; not an open-source license.
-- BYV intends to permit use of official, unmodified releases while retaining control over source modifications and derivative works.
-- External contributions are closed unless BYV explicitly invites or authorizes them.
-- Final permissions for personal/commercial use and redistribution of unmodified binaries must be stated in the approved root LICENSE before public release.
+- License: BYV Restricted Use License (BYV-RUL) v1.0; proprietary and not open source.
+- Individuals may use official unmodified binaries for personal use; organizations may use them for internal business operations through authorized users.
+- Binaries must be obtained through BYV-authorized channels. Redistribution, source modification, forks, and derivative works are prohibited without separate written BYV authorization.
+- Public contributions are currently closed.
 - Third-party components retain their own license obligations.
-- See [LICENSING.md](LICENSING.md) for the policy and unresolved legal terms.
+- See [LICENSE](../LICENSE) and [LICENSING.md](LICENSING.md) for terms and policy.
 
 ## 2. Product requirements and principles
 
