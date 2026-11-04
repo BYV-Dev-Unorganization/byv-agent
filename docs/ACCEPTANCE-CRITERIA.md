@@ -262,6 +262,12 @@ A release candidate is acceptable only when:
 - Task status and progress come from the Task Manager, not assistant text.
 - "Agent claims complete" and "runtime verified complete" are distinct.
 - Tool cards show real start, finish, error, exit code, and duration events.
+- Tool action badges use the BYV semantic palette independently from execution status.
+- File create/write/edit/patch/update/delete cards display verified line additions/deletions and changed-file counts when available.
+- Multi-file operations show accurate aggregate and per-file diff statistics.
+- Unknown or unavailable line statistics are never fabricated and are labelled/omitted clearly.
+- Partial, denied, failed, and cancelled operations are not visually misrepresented as successful changes.
+- BYV Dark, light, no-color, and custom semantic themes render consistently across panels and overlays.
 - Approval view shows exact command/tool, working directory, target, risk, and grant scope.
 - Context usage labels provider-reported and estimated numbers separately.
 - Auto-compaction state and result are visible.
