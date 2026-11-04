@@ -90,3 +90,20 @@ This file records baseline decisions. A decision can be superseded only through 
 **Rationale:** Bun compile embeds the runtime and supports standalone executable targets across the selected desktop/server platforms.
 
 **Consequences:** Release automation builds and tests each target binary independently.
+
+
+## ADR-012 — OpenTUI Core for the first-class terminal experience
+
+**Decision:** Use OpenTUI Core as the initial renderer for BITE. The UI is event-driven and separate from provider/tool execution. @opentui/react is optional and requires a Bun/native/compiled-target validation before adoption.
+
+**Rationale:** OpenTUI is designed as a native terminal UI framework, supports Bun directly, and provides the layout, input, scrolling, Markdown, code, diff, and embedded-terminal building blocks needed for a coding-agent workspace.
+
+**Consequences:** Pin a tested OpenTUI version. Run a compatibility spike and verify FFI, native assets, and compiled executable behavior on every advertised platform. Keep a line-oriented CLI fallback.
+
+## ADR-013 — BYV organization prompt is versioned separately from runtime policy
+
+**Decision:** Maintain the default organization-level behavior prompt at prompts/BYV-DEV-SYSTEM-PROMPT.md. Keep it separate from machine-enforced permission and security policy.
+
+**Rationale:** BYV Dev Unorganization needs its own product voice, engineering workflow, provider-neutral behavior, and truthful progress/reporting standards.
+
+**Consequences:** Prompt changes require versioning and regression evaluation. The prompt cannot grant tool permissions or override managed security controls.
