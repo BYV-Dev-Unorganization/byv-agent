@@ -565,7 +565,8 @@ Global internal data:
 - ~/.byv-agent/plugins/
 - ~/.byv-agent/marketplaces/
 - ~/.byv-agent/checkpoints/
-- ~/.byv-agent/state/\n- ~/.byv-agent/scheduler/
+- ~/.byv-agent/state/
+- ~/.byv-agent/scheduler/
 
 Project compatibility files:
 - CLAUDE.md
