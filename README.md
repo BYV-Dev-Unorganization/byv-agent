@@ -32,7 +32,13 @@ byv-agent is a modular coding-agent harness with configurable OpenAI-compatible 
 | [CLI Reference](docs/CLI-REFERENCE.md) | CLI command tree, flags, slash commands, status line, permissions, and interactive UX |
 | [Test Strategy](docs/TEST-STRATEGY.md) | Unit, contract, integration, end-to-end, security, compatibility, and coding evaluations |
 | [Build & Distribution](docs/BUILD-AND-DISTRIBUTION.md) | Bun setup, standalone executable targets, packaging, and release artifacts |
+| [Terminal UI/UX](docs/TUI-UX-SPECIFICATION.md) | BITE terminal layout, thinking/activity states, task panel, keyboard UX, and renderer requirements |
+| [BYV System Prompt](prompts/BYV-DEV-SYSTEM-PROMPT.md) | Official organization-level default prompt for byv-agent |
 | [Decisions](docs/DECISIONS.md) | Architectural decisions and rationale |
+
+## UI and agent behavior
+
+The terminal interface follows the BITE specification and is driven by typed session/task/activity events. The official BYV Dev Unorganization system prompt is versioned under prompts/ and is separate from runtime-enforced security policy.
 
 ## Initial implementation principles
 
