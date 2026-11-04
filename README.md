@@ -26,7 +26,10 @@ byv-agent is planned as a modular coding-agent harness with configurable OpenAI-
 | [Security Specification](docs/SECURITY.md) | Permissions, sandboxing, secrets, untrusted content, and threat controls |
 | [Roadmap](docs/ROADMAP.md) | Dependency-ordered phases and deliverables; intentionally no calendar/day estimates |
 | [Acceptance Criteria](docs/ACCEPTANCE-CRITERIA.md) | Testable completion gates for subsystems and release readiness |
-| [Configuration](docs/CONFIGURATION.md) | Configuration files, scope precedence, provider settings, secrets, and migrations |\n| [CLI Reference](docs/CLI-REFERENCE.md) | CLI command tree, flags, slash commands, status line, permissions, and interactive UX |\n| [Test Strategy](docs/TEST-STRATEGY.md) | Unit, contract, integration, end-to-end, security, compatibility, and coding evaluations |\n| [Decisions](docs/DECISIONS.md) | Architectural decisions and rationale |
+| [Configuration](docs/CONFIGURATION.md) | Configuration files, scope precedence, provider settings, secrets, and migrations |
+| [CLI Reference](docs/CLI-REFERENCE.md) | CLI command tree, flags, slash commands, status line, permissions, and interactive UX |
+| [Test Strategy](docs/TEST-STRATEGY.md) | Unit, contract, integration, end-to-end, security, compatibility, and coding evaluations |
+| [Decisions](docs/DECISIONS.md) | Architectural decisions and rationale |
 
 ## Initial implementation principles
 
