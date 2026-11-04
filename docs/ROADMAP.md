@@ -17,7 +17,9 @@ Deliverables:
 - Product scope and terminology are approved.
 - Repository, package conventions, contribution guide, license decision, and CI baseline are established.
 - Architecture decision records are maintained.
-- Strict TypeScript configuration, linting, formatting, unit test framework, and build pipeline exist.
+- Strict TypeScript configuration, Bun package/workspace setup, linting, formatting, bun test framework, and build pipeline exist.
+- Pin Bun version and document supported local development platforms.
+- Add a minimal standalone compile smoke test.
 - Dependency policy and version pinning are documented.
 - Security reporting and secret-handling rules are documented.
 
