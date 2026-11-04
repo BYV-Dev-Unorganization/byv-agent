@@ -46,6 +46,12 @@ byv-agent is a modular coding-agent harness with configurable OpenAI-compatible 
 8. Do not run destructive commands or grant broad filesystem/network access by default.
 9. Do not invent unsupported model capabilities; expose capability limitations to the user.
 
+## Runtime and distribution
+
+Bun is the required runtime and build toolchain. Standalone CLI artifacts are planned for Windows, Linux, and macOS. Android APK is a separate native companion-client target.
+
+See [Build & Distribution](docs/BUILD-AND-DISTRIBUTION.md).
+
 ## Status
 
 This repository currently contains planning and specification documents. Implementation status must be tracked separately from planned scope. Roadmap phases have completion gates, not time estimates.
