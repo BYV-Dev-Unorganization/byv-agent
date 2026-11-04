@@ -63,9 +63,7 @@ The project is not merely a chat UI around an LLM. It is a controlled execution 
 These are not required for the first usable CLI release, but the architecture must not prevent them:
 
 - Native desktop GUI.
-- Android APK companion client (separate native/wrapper target; not compiled directly by Bun).
 - Hosted SaaS control plane and multi-tenant billing.
-- Additional mobile client platforms beyond the Android companion app (future).
 - Voice conversation.
 - Public hosted plugin marketplace operated by BYV.
 - Distributed agent teams across multiple machines.
@@ -617,7 +615,6 @@ Avoid using multiple competing libraries for the same subsystem without a docume
 - Windows builds should produce a correctly named .exe; Unix-like builds should be executable files usable as `./byv`.
 - Runtime user data, Skills, Plugins, MCP configuration, provider secrets, and project files remain external to the executable unless a resource is intentionally embedded.
 - Native tools such as Git, Docker/Podman, language servers, browser engines, and compiler toolchains remain system dependencies and must be diagnosed by `byv doctor`.
-- Android APK is a separate product packaging target. Bun's documented standalone executable target list does not include Android. A future Android client should use a native Android shell or supported mobile framework and communicate with the byv-agent runtime through a secured local/remote API. Do not label a Bun Linux binary as an Android APK.
 
 See [Build & Distribution](BUILD-AND-DISTRIBUTION.md).
 
