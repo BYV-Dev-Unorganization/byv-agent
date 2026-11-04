@@ -86,31 +86,35 @@ The interactive TUI follows docs/TUI-UX-SPECIFICATION.md and uses OpenTUI Core. 
 
 Owns session lifecycle, active model/effort/mode, user steering, queue semantics, interrupt handling, transcript append, session resume, and state recovery. It routes `/btw` requests to the isolated Side Question Service instead of appending them to the main queue.
 
+### 3.3 Side Question Service
+
+Owns `/btw` parsing/dispatch, immutable session-context snapshot capture, independent provider calls, side-request concurrency/cancellation/timeouts, side-question persistence, separate usage accounting, and optional explicit fork creation. It has no tool registry handle and cannot execute filesystem, shell, MCP, Plugin, Hook, Agent, browser, or network tools. Its requests never acquire the main agent-loop lock or mutate the main transcript, task state, queue, memory, or active context pointer. See [Side Questions](SIDE-QUESTIONS.md).
+
 ### 3.4 Core orchestrator
 
 Owns the model/tool loop and task state transitions. It must not perform filesystem or process effects directly. It requests tools through the registry and execution dispatcher.
 
-### 3.6 Provider manager
+### 3.5 Provider manager
 
 Owns provider configuration, adapters, capability lookup, request construction, stream parsing, usage extraction, retry classification, routing, and fallback. It returns canonical events.
 
-### 3.7 Context engine
+### 3.6 Context engine
 
 Owns instruction discovery, retrieval, token estimates, context assembly, context provenance, and budget calculation.
 
-### 3.8 Compaction engine
+### 3.7 Compaction engine
 
 Owns history selection, summary creation, compaction validation, active-context replacement, event emission, and recovery. It does not delete the raw transcript.
 
-### 3.9 Tool execution dispatcher
+### 3.8 Tool execution dispatcher
 
 Owns schema validation, tool ID correlation, permission check, approval request, runner selection, timeouts, cancellation, output capture, and result persistence.
 
-### 3.10 Extension manager
+### 3.9 Extension manager
 
 Owns Skills, Plugins, Agents, Hooks, MCP configuration, marketplace sources, extension namespaces, validation, trust state, and reload.
 
-### 3.11 Execution runners
+### 3.10 Execution runners
 
 Implement a common runner contract:
 - Local process runner.
