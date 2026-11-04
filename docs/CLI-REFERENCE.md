@@ -1,6 +1,16 @@
 # byv-agent CLI and Interactive UX Specification
 
-## 1. Interface principles
+## 1. Runtime and invocation
+
+Source development uses Bun. The exact entrypoint is defined when the CLI package is implemented.
+
+Standalone release invocation:
+- Unix-like: `./byv --help`
+- Windows: `byv.exe --help`
+
+A published standalone artifact embeds the Bun runtime. Users must not need Node.js or Bun installed to use it. External executables such as Git, Docker, language servers, and browser engines remain optional system dependencies diagnosed by `byv doctor`.
+
+## 2. Interface principles
 
 - CLI is the first-class interface.
 - Text generation, tool activity, permission prompts, and background status must be distinguishable.
