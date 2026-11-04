@@ -35,7 +35,10 @@ Deliverables:
 - Canonical tool schema and tool registry.
 - Session controller interface.
 - Agent state machine and typed errors.
+- Typed UI activity/task event contract so the TUI can render status without coupling to provider or tool implementations.
 - CLI command parser and interactive prompt shell.
+- OpenTUI Core compatibility spike on Bun, including native asset load in source and compiled builds.
+- Initial BITE header, conversation view, composer, and event-driven status rendering.
 - Structured logging and trace identifiers.
 - Configuration schema and migration mechanism.
 
@@ -102,6 +105,7 @@ Deliverables:
 - Ignore-aware indexing and search.
 - Context budgets and token estimation.
 - Context usage monitor.
+- BITE context meter, compaction notice, and context breakdown view.
 - Session persistence and resume.
 - Append-only transcript and tool artifact storage.
 - Manual compaction.
