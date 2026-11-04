@@ -225,6 +225,7 @@ Memory features:
 - Technical/project architecture notes.
 - Subagent memory with user/project/local scopes.
 - Searchable memory and provenance.
+- Session search by title, prompt, file path, tool, date, or full-text transcript where enabled.
 - Explicit inspect, edit, disable, and delete controls.
 - Do not store secrets, credentials, or sensitive data by default.
 - Memory retrieval is advisory; project instructions and current user input retain higher authority.
@@ -530,6 +531,7 @@ The CLI remains first-class; no hosted SaaS or desktop client is required for th
 - /tasks, /goal, /queue, /background
 - /undo, /rewind, /checkpoints, /diff
 - /resume, /sessions, /branch, /export
+- /schedule, /jobs
 - /doctor, /config, /status
 
 Command names are the proposed byv-agent UX. Compatibility aliases may be added, but a byv command must not falsely claim identical Claude Code behavior unless tested.
@@ -563,7 +565,7 @@ Global internal data:
 - ~/.byv-agent/plugins/
 - ~/.byv-agent/marketplaces/
 - ~/.byv-agent/checkpoints/
-- ~/.byv-agent/state/
+- ~/.byv-agent/state/\n- ~/.byv-agent/scheduler/
 
 Project compatibility files:
 - CLAUDE.md
