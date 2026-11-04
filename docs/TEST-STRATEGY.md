@@ -26,6 +26,7 @@ Use `bun test` for unit and integration tests unless a verified exception is doc
 - MCP config parsing.
 - Hook matcher and lifecycle dispatch.
 - Session transitions and queue ordering.
+- Side-question context snapshot isolation, no-tool enforcement, separate persistence, and usage accounting.
 
 ### Contract tests
 - OpenAI-compatible adapter.
@@ -47,6 +48,9 @@ Use `bun test` for unit and integration tests unless a verified exception is doc
 - Plugin install/load/remove.
 - Subagent delegation and result merge.
 - Background task recovery.
+- Side-question service running concurrently with a blocked/streaming main turn.
+- Side-question provider failure/rate-limit isolation, request cancellation, timeouts, and session restart history recovery.
+- Explicit side-answer fork into a new session without mutating the original session.
 
 ### End-to-end tests
 - Start CLI in a fixture repository.
@@ -70,6 +74,8 @@ Use `bun test` for unit and integration tests unless a verified exception is doc
 - Resource exhaustion.
 - Unauthorized network and filesystem access.
 - Cross-session data leakage.
+- Side-question requests cannot access tools, secrets, uncommitted streaming output, or another session's context.
+- Side-question answers cannot be injected into main prompt assembly or compaction without an explicit fork.
 - Remote credential scope and cleanup.
 
 ## 3. Provider fixture matrix
@@ -228,5 +234,6 @@ For each supported release target, run the standalone binary in a clean environm
 - Test composer paste, multiline entry, history, slash completion, and keyboard focus.
 - Test resize while preserving composer and task selection.
 - Test approval flow, message queue, interrupt, and panel navigation.
+- Test `/btw` dispatch while the main turn is active, asynchronous overlay streaming/dismissal, composer draft preservation, side-history controls, raw-Markdown copy, and fork action.
 - Test terminal restoration after exception, signal, and renderer failure.
 - Run native OpenTUI and standalone binary smoke tests per release target.
