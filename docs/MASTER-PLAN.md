@@ -52,7 +52,7 @@ The project is not merely a chat UI around an LLM. It is a controlled execution 
 - Claude Code-compatible Skills, MCP, Plugins, Agents, Hooks, settings, and marketplace formats.
 - Subagents, delegated tasks, parallel work, isolated worktrees.
 - Code intelligence via search, Tree-sitter, and LSP.
-- Background processes, message queue, task notifications.
+- Background processes, message queue, task notifications, and isolated `/btw` side questions.
 - Browser automation as an optional tool provider.
 - Security policy, permissions, approvals, sandboxing, audit logs.
 - Diagnostics, logs, usage reporting, evaluations, release packaging.
@@ -397,6 +397,12 @@ Responsibilities:
 - Progress, logs, notifications, and stall detection.
 - Recover task metadata after restart.
 - Ensure only one authoritative writer per shared workspace unless explicit isolation exists.
+- Run `/btw` side questions concurrently with the main turn using a frozen context snapshot and no tools.
+- Keep side-question state, transcript records, cancellation, usage, and cost separate from the main task.
+- Exclude side questions from the main queue, transcript, task state, memory, and compaction by default.
+- Support a deliberate fork from a completed side answer without changing the original session.
+
+See [Side Questions](SIDE-QUESTIONS.md) for the complete behavior and acceptance contract.
 
 ### 20 — Security and Permission Engine (P0)
 
@@ -531,7 +537,7 @@ The CLI remains first-class; no hosted SaaS or desktop client is required for th
 - /usage, /cost, /stats
 - /permissions, /approve, /deny
 - /skills, /agents, /mcp, /plugin, /hooks
-- /tasks, /goal, /queue, /background
+- /tasks, /goal, /queue, /background, /btw
 - /undo, /rewind, /checkpoints, /diff
 - /resume, /sessions, /branch, /export
 - /schedule, /jobs
