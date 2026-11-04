@@ -162,31 +162,65 @@ Remote HTTP authentication, OAuth, headers, reconnection, and refresh behavior m
 
 ### 6.1 Plugin format
 
-Support documented plugin layout with:
-- .claude-plugin/plugin.json manifest.
-- skills/
-- agents/
-- hooks/hooks.json
-- .mcp.json
-- commands/ where documented.
-- other documented plugin components when their behavior is implementable and tested.
+Support the documented standard layout, where the manifest is at .claude-plugin/plugin.json and component directories/files are rooted at the plugin root. The manifest may be optional when the default layout is sufficient.
+
+Target documented component keys and formats:
+- skills;
+- commands, including Markdown command files and manifest-defined source/content commands;
+- agents;
+- hooks;
+- mcpServers and .mcp.json;
+- lspServers and .lsp.json;
+- outputStyles;
+- workflows;
+- executables;
+- channels;
+- experimental themes and monitors only when the compatibility baseline is pinned and the behavior is implemented;
+- plugin settings and userConfig values where defined by the public schema.
+
+The standard component layout includes skills/, commands/, agents/, hooks/hooks.json, .mcp.json, .lsp.json, output-styles/, workflows/, executables/, and monitor configuration where applicable.
+
+JavaScript hooks modules/mods, custom UI panes, commands, and other host-runtime-specific behavior are advanced compatibility work. Do not claim support unless byv-agent has the necessary lifecycle API, trust boundary, and conformance tests.
 
 Do not assume a component directory must always be listed in plugin.json; follow the public plugin rules for the compatibility baseline.
 
 ### 6.2 Manifest
 
-Parse and validate:
-- name;
+Parse and validate documented plugin.json fields, including:
+- name (required identifier);
+- displayName;
 - version;
 - description;
-- author and other documented metadata;
-- component/path metadata and dependencies where the upstream schema supports them.
+- author;
+- homepage;
+- repository;
+- license;
+- keywords;
+- metadata;
+- icon/documentation/support/privacy/terms listing metadata where applicable;
+- defaultEnabled;
+- dependencies;
+- settings;
+- userConfig;
+- skills;
+- commands;
+- agents;
+- hooks;
+- mcpServers;
+- lspServers;
+- outputStyles;
+- workflows;
+- experimental component declarations supported by the selected compatibility baseline.
+
+Follow upstream path forms, relative path resolution, plugin-root containment, and whether a manifest field adds to or replaces a default component scan. Validate strict nested objects where the upstream schema requires strict validation.
 
 Retain unknown metadata. Reject unsafe paths and invalid names. Ensure the plugin root cannot escape the installation directory through symlinks or traversal.
 
 ### 6.3 Marketplace
 
-Support documented marketplace.json structure and sources. Provide:
+Support marketplace metadata in .claude-plugin/marketplace.json, including required name, owner, and plugins fields, plus documented optional schema, description, and version metadata. Parse individual plugin entries, their source objects, display metadata, component overrides, and marketplace/plugin source types supported by the chosen baseline.
+
+Provide:
 - marketplace add/list/inspect/update/remove;
 - plugin discovery;
 - install/uninstall;
@@ -345,3 +379,20 @@ Every fixture must record upstream documentation URL and review date. Release no
 - Subagents: https://code.claude.com/docs/en/sub-agents
 - MCP: https://code.claude.com/docs/en/mcp
 - Settings: https://code.claude.com/docs/en/settings
+
+
+## 12. Compatibility scope labels
+
+For each component or field use one status:
+- **Supported:** parser and runtime semantics pass the compatibility suite.
+- **Partial:** format is parsed but one or more documented runtime behaviors are missing; diagnostic required.
+- **Unsupported:** intentionally not executed or loaded; diagnostic required.
+- **Unknown:** field is preserved but not interpreted.
+
+A feature must not be upgraded from Partial to Supported based only on parsing.
+
+## 13. Additional official references
+
+- Plugin manifest reference: https://code.claude.com/docs/en/plugins/manifest-reference
+- Marketplace reference: https://code.claude.com/docs/en/plugins/marketplace-reference
+- Plugin components: https://code.claude.com/docs/en/plugins/components
