@@ -455,7 +455,8 @@ Responsibilities:
 - Cost and task status display.
 - Diff and checkpoint viewer.
 - Background process monitor.
-- Theme and keyboard shortcuts.
+- BYV Dark theme, semantic palette tokens, light/custom theme support, and keyboard shortcuts.
+- Typed tool cards with action-specific colors and verified file line statistics (added/removed lines and changed-file counts).
 - Image input where terminal capabilities permit.
 - Non-interactive mode for automation.
 
