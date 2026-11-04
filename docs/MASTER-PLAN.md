@@ -77,6 +77,8 @@ The implementation is organized into the following subsystems. Each subsystem mu
 
 ### 01 — Core Agent Engine (P0)
 
+Use the versioned organization prompt in ../prompts/BYV-DEV-SYSTEM-PROMPT.md as the default BYV behavior baseline. Keep prompt assembly and provider-role mapping separate from tool permission enforcement.
+
 Responsibilities:
 - Accept user prompts and session state.
 - Build a request from trusted instructions, selected model, active context, and available tools.
@@ -430,6 +432,8 @@ Responsibilities:
 
 ### 22 — CLI and Interactive UI (P0)
 
+See [BITE Terminal UI/UX Specification](TUI-UX-SPECIFICATION.md) for the complete layout, thinking/activity indicators, task model, keyboard behavior, approvals, responsive behavior, and renderer acceptance criteria.
+
 Responsibilities:
 - CLI commands and flags.
 - Streaming text and tool status.
@@ -589,7 +593,7 @@ byv-agent-owned project state may live in .byv-agent/ only when it is safe and u
 - Bundler and compiler: Bun bundler and `bun build --compile` for standalone executables.
 - Test runner: `bun test` as the default unit/integration runner.
 - CLI parsing: Commander or citty; select one after a Bun compatibility spike.
-- TUI: Ink and a prompt library where needed.
+- TUI renderer: OpenTUI Core (@opentui/core); optional @opentui/react only after Bun/native/standalone target validation. Do not add Ink as a second renderer.
 - Validation: Zod or JSON Schema with a single canonical schema strategy.
 - HTTP: native fetch or a thin typed client.
 - Provider SDKs: use official SDKs where they preserve required protocol features; retain raw HTTP adapter escape hatches for compatible gateways.
