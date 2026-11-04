@@ -208,3 +208,25 @@ A release candidate is acceptable only when:
 - Security review has no unresolved critical/high findings.
 - Backup/restore and session recovery are tested.
 - README and user documentation are current.
+
+
+## 17. Scheduler and integration API acceptance
+
+- One-time and recurring jobs persist according to the configured policy.
+- Schedule parsing is timezone-aware and handles daylight-saving changes where relevant.
+- Missed-run behavior is explicit.
+- Duplicate triggers are deduplicated when configured.
+- Side-effecting unattended jobs follow approval policy.
+- Scheduled jobs enforce model, token, cost, time, network, and execution budgets.
+- Job cancellation and history work.
+- Local API requires authentication and scoped permissions.
+- API event streams do not leak secrets.
+- API and scheduler actions are audited.
+
+## 18. Editor bridge and optional UI acceptance
+
+- Editor requests map to an authenticated local session/task API.
+- File paths are checked against workspace policy.
+- Diagnostics and diff previews refer to current file revisions.
+- UI clients cannot bypass the permission engine.
+- CLI-only operation remains functional when no editor/web/desktop client is installed.
