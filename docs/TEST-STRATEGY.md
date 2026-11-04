@@ -11,7 +11,7 @@ No release claim should be based only on a successful manual demo.
 ### Unit tests (Bun test runner)
 Use `bun test` for unit and integration tests unless a verified exception is documented.
 
-### Unit tests
+### Unit test coverage
 - Config parsing and precedence.
 - Provider request construction and stream parsing.
 - Canonical message/event transformations.
