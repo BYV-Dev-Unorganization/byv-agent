@@ -32,6 +32,51 @@ The interface is keyboard-first, responsive to terminal dimensions, low-noise, a
 - Respect no-color and reduced-motion modes.
 - Do not imitate another vendor's branding or proprietary UI.
 
+### 2.1 Theme system and semantic palette
+
+The first built-in preset is **BYV Dark**. Theme tokens are semantic: components must request a role such as `tool.edit` or `status.running`, never hard-code terminal colors throughout the UI.
+
+Base palette (design values; renderer maps them to truecolor, 256-color, or the closest supported terminal palette):
+
+| Token | BYV Dark value | Use |
+|---|---:|---|
+| `surface.base` | `#0B1020` | Main terminal background |
+| `surface.panel` | `#111827` | Conversation/tool/task panels |
+| `surface.elevated` | `#1F2937` | Popups, selected rows, overlays |
+| `text.primary` | `#F3F4F6` | Main content |
+| `text.secondary` | `#CBD5E1` | Metadata and descriptions |
+| `text.muted` | `#94A3B8` | Timestamps and subdued labels |
+| `brand.primary` | `#3B82F6` | BYV brand accent and focus |
+| `status.running` | `#38BDF8` | Running/active |
+| `status.success` | `#22C55E` | Completed successfully |
+| `status.warning` | `#F59E0B` | Waiting, approval, attention |
+| `status.error` | `#EF4444` | Failed, denied, destructive |
+| `status.inactive` | `#64748B` | Idle, skipped, cancelled |
+| `diff.added` | `#22C55E` | Added lines |
+| `diff.removed` | `#F87171` | Removed lines |
+
+Tool action accents are a separate color channel from execution status. An `EDIT` badge may retain its action color while its status changes from RUNNING to DONE or ERROR; never use an action color alone to imply success.
+
+| Action badge | Accent token | Examples |
+|---|---|---|
+| `READ`, `SEARCH`, `GLOB` | `tool.read` = cyan `#22D3EE` | Read file, find text, list files |
+| `WRITE`, `CREATE` | `tool.write` = blue `#60A5FA` | Create or write a file |
+| `EDIT`, `PATCH`, `UPDATE` | `tool.edit` = violet `#A78BFA` | Replace content or apply a patch |
+| `DELETE`, `REMOVE` | `tool.delete` = red `#F87171` | Delete a file/resource |
+| `MOVE`, `COPY`, `RENAME` | `tool.move` = magenta `#E879F9` | Move, copy, or rename |
+| `SHELL`, `COMMAND`, `PROCESS` | `tool.command` = amber `#FBBF24` | Run a process or command |
+| `GIT` | `tool.git` = teal `#2DD4BF` | Git status, diff, branch, commit |
+| `MCP`, `PLUGIN`, `HOOK`, `AGENT` | `tool.extension` = purple `#C4B5FD` | Extension or delegated operation |
+
+Theme requirements:
+- Keep action category, execution state, and diff state visually independent.
+- Use labels/icons as well as color; support no-color and low-color terminals with text labels and patterns.
+- Maintain WCAG-informed contrast for foreground text where terminal color capability permits; do not rely on subtle hue differences alone.
+- Support `byv-dark`, a light preset, and user-defined semantic token overrides. BYV Dark is the default.
+- `auto` color mode may follow terminal capability/environment; never assume a dark terminal background without detection or a configured fallback.
+- Theme changes apply immediately and never restart or interrupt an agent task.
+- Keep theme tokens centralized so tool cards, diff views, status indicators, approvals, and popups remain consistent.
+
 ## 3. Renderer and runtime
 
 Use @opentui/core as the initial renderer. OpenTUI provides terminal rendering, layout, input, scrolling, text input, selection, Markdown, code, diff, tables, embedded terminal, and lifecycle APIs.
@@ -137,10 +182,70 @@ Message/card types:
 - warning/error;
 - final task summary.
 
+### 7.1 Structured tool cards
+
+Every tool invocation is rendered as a compact, typed card instead of an unstructured line of prose. The card has separate visual fields for action category and execution status.
+
+Required fields when available:
+- action badge: `READ`, `WRITE`, `EDIT`, `UPDATE`, `DELETE`, `MOVE`, `COMMAND`, `GIT`, `MCP`, etc.;
+- target: workspace-relative file path, command summary, MCP server/tool, or resource identifier;
+- status: `QUEUED`, `RUNNING`, `WAITING APPROVAL`, `DONE`, `ERROR`, `DENIED`, or `CANCELLED`;
+- concise operation summary;
+- changed-file count and line statistics when the operation changes files;
+- duration and exit code for completed process/tool execution;
+- expandable output and diff/artifact reference.
+
+Example card layout:
+
+```text
+┌ EDIT  src/auth/session.ts ─────────────── DONE ─┐
+│ Refresh token validation                      │
+│ +18  -4 lines     1 file changed     0.42s    │
+└────────────────────────────────────────────────┘
+
+┌ WRITE  src/config/defaults.ts ───────── RUNNING ┐
+│ Creating default provider configuration       │
+│ +36 lines (pending verification)              │
+└────────────────────────────────────────────────┘
+
+┌ DELETE  src/legacy/token.ts ─────────── ERROR ─┐
+│ Permission denied                             │
+│ No file change was applied                    │
+└────────────────────────────────────────────────┘
+```
+
+The exact border glyphs may adapt to terminal capability, but the hierarchy and fields must remain clear.
+
+### 7.2 File-change and line-count contract
+
+- `WRITE` / `CREATE`: show added and removed line counts, final line count when known, and file path.
+- `EDIT` / `PATCH` / `UPDATE`: show added and removed lines from the actual before/after diff, plus changed-file count.
+- `DELETE`: show removed lines when the pre-delete content is available and confirmed.
+- `MOVE` / `RENAME`: show source and destination paths; do not report line changes unless content changed.
+- Multi-file operations: show an aggregate summary (files changed, total additions/deletions) and expandable per-file rows.
+- Diff signs use `diff.added` and `diff.removed` colors; numbers must be formatted consistently, e.g. `+18` and `-4`.
+- Calculate counts from the actual file snapshot/diff or structured tool result, never from model-written prose, planned changes, or the size of tool arguments.
+- If exact counts cannot be established, display `line stats unavailable` or omit the metrics. Never estimate or invent line counts.
+- For an operation that has started but not completed, label counts as provisional/pending until the runtime confirms the result.
+- A denied/failed operation must not show a successful line-change count unless a separately confirmed partial change occurred; show that partial state explicitly.
+- Preserve the exact diff artifact/revision referenced by the card so opening it cannot show a later unrelated file version.
+
+### 7.3 Tool-card states and grouping
+
+- Running cards use the running status token and a subtle spinner; do not imply completion.
+- Successful cards use the success status token and a `DONE` label.
+- Approval-required cards use the warning token and show the pending approval boundary.
+- Failed/denied cards use the error token and include the actual error or denial reason.
+- Cancelled cards use the inactive token and distinguish cancellation from failure.
+- Consecutive tool calls may be grouped under one collapsible operation group, but each call retains its own ID, target, result, and state.
+- Keep long output collapsed by default; the card summary remains visible in the transcript and Activity panel.
+
 Requirements:
 - Render Markdown safely.
 - Render code blocks with language and optional line numbers.
 - Render file diffs with additions/deletions.
+- Render typed tool cards with action badge, target, execution state, changed-file count, verified line additions/deletions, and duration/exit code where available.
+- Color tool actions independently from success/error state, following the semantic BYV palette.
 - Collapse long tool output by default; allow inspection of full artifact.
 - Distinguish assistant-authored text from runtime-generated status.
 - Preserve streaming without flicker.
@@ -282,10 +387,10 @@ Tabs:
 
 Activity entries:
 - operation start/completion;
-- tool name and concise argument summary;
+- tool name/action badge and concise argument summary;
 - command and working directory;
 - exit code and duration;
-- changed file paths;
+- changed file paths, changed-file count, verified lines added/removed, and per-file diff stats when available;
 - test summary;
 - MCP server/tool call;
 - approval request/result;
