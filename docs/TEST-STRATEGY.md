@@ -216,3 +216,17 @@ Release gates:
 ## 10. Bun compiled artifact tests
 
 For each supported release target, run the standalone binary in a clean environment without Node.js or Bun installed. Verify CLI help, provider config parsing, SQLite initialization, project file loading, Skills discovery, MCP configuration parsing, plugin discovery (without executing plugin code), subprocess behavior, external asset lookup, and graceful shutdown.
+
+
+## 11. TUI tests
+
+- Render component fixtures in memory and snapshot stable layouts.
+- Test wide, medium, narrow, short, no-color, and reduced-motion variants.
+- Feed canonical agent/task/activity events and assert visible status transitions.
+- Verify thinking status never renders hidden reasoning payload fields.
+- Verify task status uses Task Manager events and not assistant message wording.
+- Test composer paste, multiline entry, history, slash completion, and keyboard focus.
+- Test resize while preserving composer and task selection.
+- Test approval flow, message queue, interrupt, and panel navigation.
+- Test terminal restoration after exception, signal, and renderer failure.
+- Run native OpenTUI and standalone binary smoke tests per release target.
