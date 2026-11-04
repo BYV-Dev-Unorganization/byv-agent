@@ -13,7 +13,7 @@ byv-agent is a modular coding-agent harness with configurable OpenAI-compatible 
 - **Model agnosticism:** capabilities are discovered or configured per model; unsupported features are never silently pretended to work.
 - **Claude Code ecosystem compatibility:** support documented formats and behaviors for Skills, MCP configuration, Plugins, Agents, Hooks, settings, and marketplace metadata where specified.
 - **Local-first execution:** CLI and workspace operations work locally, with optional isolated Docker/Podman and remote runners.
-- **Portable distribution:** publish standalone Windows .exe, Linux binaries, and macOS binaries. Android APK is a separate native/wrapper application target, not a direct Bun compile target.
+- **Portable distribution:** publish standalone Windows .exe, Linux binaries, and macOS binaries.
 - **Safe autonomy:** permissions, approvals, workspace boundaries, resource limits, and auditable execution are part of the design.
 - **Verifiable coding:** tasks are complete only after configured checks and explicit completion criteria are evaluated.
 
@@ -31,7 +31,7 @@ byv-agent is a modular coding-agent harness with configurable OpenAI-compatible 
 | [Configuration](docs/CONFIGURATION.md) | Configuration files, scope precedence, provider settings, secrets, and migrations |
 | [CLI Reference](docs/CLI-REFERENCE.md) | CLI command tree, flags, slash commands, status line, permissions, and interactive UX |
 | [Test Strategy](docs/TEST-STRATEGY.md) | Unit, contract, integration, end-to-end, security, compatibility, and coding evaluations |
-| [Build & Distribution](docs/BUILD-AND-DISTRIBUTION.md) | Bun setup, standalone executable targets, packaging, Android strategy, and release artifacts |
+| [Build & Distribution](docs/BUILD-AND-DISTRIBUTION.md) | Bun setup, standalone executable targets, packaging, and release artifacts |
 | [Decisions](docs/DECISIONS.md) | Architectural decisions and rationale |
 
 ## Initial implementation principles
@@ -48,7 +48,7 @@ byv-agent is a modular coding-agent harness with configurable OpenAI-compatible 
 
 ## Runtime and distribution
 
-Bun is the required runtime and build toolchain. Standalone CLI artifacts are planned for Windows, Linux, and macOS. Android APK is a separate native companion-client target.
+Bun is the required runtime and build toolchain. Standalone CLI artifacts are planned for Windows, Linux, and macOS.
 
 See [Build & Distribution](docs/BUILD-AND-DISTRIBUTION.md).
 
