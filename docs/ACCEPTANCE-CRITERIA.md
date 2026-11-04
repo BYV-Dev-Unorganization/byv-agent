@@ -163,6 +163,15 @@ This document defines observable completion conditions. A feature is not complet
 - Immediate steering and interrupt are distinct from queue.
 - Queue item can be removed.
 - Background task failure is visible.
+- `/btw` can be submitted during active generation, tool execution, and background waiting without entering the main queue.
+- Side-question requests run independently from the main agent-loop lock and return without waiting for the main turn to finish.
+- Side questions receive a frozen, redacted snapshot of committed context and no tool definitions.
+- Tool calls emitted during a side question are rejected and never dispatched.
+- Side prompts/answers are excluded from main transcript, active context, compaction, memory, task state, and queue by default.
+- Side-request failures, cancellation, timeout, and provider rate limits do not affect the main task.
+- Side-question tokens and cost are tracked separately from main-task usage.
+- Dismissing an answer overlay preserves the main composer draft and does not cancel either the main turn or the side request.
+- Concurrency limits, visible-history clearing, restart recovery, and explicit fork promotion are tested.
 - Stall detection does not falsely mark long but active tasks as stalled.
 
 ## 14. Browser acceptance
