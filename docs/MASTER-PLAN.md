@@ -63,6 +63,7 @@ The project is not merely a chat UI around an LLM. It is a controlled execution 
 These are not required for the first usable CLI release, but the architecture must not prevent them:
 
 - Native desktop GUI.
+- Android APK companion client (separate native/wrapper target; not compiled directly by Bun).
 - Hosted SaaS control plane and multi-tenant billing.
 - Mobile application.
 - Voice conversation.
