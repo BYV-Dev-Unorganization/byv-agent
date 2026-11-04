@@ -120,8 +120,8 @@ This file records baseline decisions. A decision can be superseded only through 
 
 ## ADR-015 — BYV Restricted Use License and closed contributions
 
-**Decision:** byv-agent uses a custom **BYV Restricted Use License (BYV-RUL)**. The project is proprietary and source-available, not open source. BYV intends to permit use of official, unmodified releases while retaining control over source modification and derivative works. External contributions are closed unless BYV expressly invites or authorizes them.
+**Decision:** byv-agent uses **BYV Restricted Use License (BYV-RUL) v1.0**. The project is proprietary and not open source. Individuals may use official, unmodified binaries for personal use, and organizations may use them for internal business operations through authorized users. Binaries must be obtained from BYV-authorized channels. Redistribution is prohibited; source modification and derivative works are not permitted. External contributions are closed unless BYV expressly invites or authorizes them.
 
-**Rationale:** BYV wants users to be able to use the product without granting general rights to modify, fork, redistribute source, or contribute code to the project.
+**Rationale:** BYV wants to permit personal and internal organizational use while retaining control over source code, binary distribution, modifications, forks, derivative works, and external contributions.
 
-**Consequences:** Do not use MIT, Apache-2.0, GPL, or another OSI-approved license as the project license. Maintain the policy in [LICENSING.md](LICENSING.md). The final root `LICENSE` must explicitly define permitted user classes, personal/commercial use, and binary redistribution before public release. Third-party dependency licenses remain independently applicable. Do not accept public contributions by default.
+**Consequences:** The root [LICENSE](../LICENSE) contains BYV-RUL v1.0. Maintain the policy in [LICENSING.md](LICENSING.md). Do not use MIT, Apache-2.0, GPL, or another open-source license for BYV-owned code. Third-party dependency licenses remain independently applicable. Public contributions are closed unless BYV grants separate written authorization.
