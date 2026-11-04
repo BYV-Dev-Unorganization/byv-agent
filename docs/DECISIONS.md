@@ -89,4 +89,4 @@ This file records baseline decisions. A decision can be superseded only through 
 
 **Rationale:** Bun compile embeds the runtime and supports standalone executable targets across the selected desktop/server platforms.
 
-**Consequences:** Release automation builds and tests each target binary independently. The project does not target Android or APK packaging.
+**Consequences:** Release automation builds and tests each target binary independently.
