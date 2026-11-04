@@ -6,6 +6,7 @@
 - The released CLI should be a standalone executable that runs without a separately installed Bun or Node.js runtime.
 - Release artifacts are target-specific and tested on a clean machine.
 - Configuration, credentials, Skills, Plugins, MCP servers, project files, Git, language servers, Docker, and browser engines remain external runtime resources unless explicitly embedded.
+- OpenTUI native libraries and required assets must be bundled/located according to its Bun executable guidance and verified on every release target.
 
 ## 2. Bun toolchain
 
@@ -112,7 +113,21 @@ The app must:
 - avoid installing system tools without approval;
 - report missing dependencies without crashing unrelated features.
 
-## 7. Native dependency policy
+## 7. OpenTUI packaging
+
+The terminal UI uses OpenTUI Core, which loads native renderer artifacts and may use runtime assets. The build process must follow the current OpenTUI Bun executable guidance:
+- include the target-specific native Core package;
+- embed or correctly resolve the native library and required asset files;
+- set any required asset root before importing the Core module;
+- verify FFI/native access under Bun's executable runtime;
+- test TUI initialization, resize, input, rendering, and clean shutdown in the compiled binary;
+- keep a plain CLI fallback for renderer or native asset failure.
+
+Do not infer support merely because a package exists for a target. Record OpenTUI version, Bun version, OS, architecture, libc, and test result in release metadata.
+
+Reference: https://opentui.com/docs/getting-started/runtime-support/
+
+## 8. Native dependency policy
 
 - Prefer Bun-native APIs and Web-standard APIs.
 - Use pure TypeScript/JavaScript packages when practical.
@@ -121,7 +136,7 @@ The app must:
 - Validate dynamic imports, package assets, WASM files, subprocesses, and runtime file resolution.
 - Do not claim a single cross-platform artifact; build per target.
 
-## 8. Release pipeline
+## 9. Release pipeline
 
 For every release:
 1. Select and record the pinned Bun version.
@@ -138,7 +153,7 @@ For every release:
 
 Windows releases should plan for Authenticode signing. macOS releases should plan for code signing and notarization when distributing outside local development. Linux releases should include archives and optional package formats after the raw binary is verified.
 
-## 9. Installation UX
+## 10. Installation UX
 
 Unix-like systems:
 
@@ -153,7 +168,7 @@ Windows:
 
 An installer may place the binary in a user-selected PATH directory. Do not require administrator rights for a per-user installation.
 
-## 10. Official references
+## 11. Official references
 
 - Bun compiler / standalone executable: https://bun.sh/docs/compiler
 - Bun single-file executables and supported targets: https://bun.sh/docs/bundler/executables
