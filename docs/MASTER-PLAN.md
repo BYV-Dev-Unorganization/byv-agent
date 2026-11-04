@@ -585,28 +585,42 @@ byv-agent-owned project state may live in .byv-agent/ only when it is safe and u
 ## 7. Recommended technology stack
 
 - Language: TypeScript with strict type checking.
-- Runtime: supported Node.js LTS release.
-- Monorepo: pnpm workspaces.
-- CLI parsing: Commander or citty; select one after a small technical spike.
+- Runtime: Bun (pin a supported Bun release in CI and release metadata).
+- Package manager and workspaces: Bun install / Bun workspaces.
+- Bundler and compiler: Bun bundler and `bun build --compile` for standalone executables.
+- Test runner: `bun test` as the default unit/integration runner.
+- CLI parsing: Commander or citty; select one after a Bun compatibility spike.
 - TUI: Ink and a prompt library where needed.
 - Validation: Zod or JSON Schema with a single canonical schema strategy.
 - HTTP: native fetch or a thin typed client.
 - Provider SDKs: use official SDKs where they preserve required protocol features; retain raw HTTP adapter escape hatches for compatible gateways.
 - MCP: official TypeScript SDK.
-- Processes: Execa or carefully wrapped Node child_process.
-- Persistence: SQLite with migrations; Drizzle is an optional query layer.
+- Processes: Bun.spawn as the primary process API; any compatibility wrapper must be Bun-tested.
+- Persistence: SQLite with migrations, initially using Bun's `bun:sqlite`; Drizzle is optional only if it adds value without requiring an unsupported native dependency.
 - Search: ripgrep plus SQLite FTS5.
 - Syntax: Tree-sitter.
 - Language intelligence: LSP client.
-- Testing: Vitest; Playwright for browser/e2e.
+- Testing: `bun test`; Playwright for browser/e2e where Bun compatibility is verified.
 - Logging: Pino.
 - Tracing: OpenTelemetry optional export.
 - Containers: Docker/Podman.
 - CI: GitHub Actions.
 
-Avoid using multiple competing libraries for the same subsystem without a documented reason. The exact dependency versions must be selected and pinned during implementation, not guessed in this planning document.
+Avoid using multiple competing libraries for the same subsystem without a documented reason. The exact Bun version and dependency versions must be selected and pinned during implementation, not guessed in this planning document. Node.js is not a production runtime requirement. Packages using Node APIs may be used only after Bun compatibility tests; native Node-API addons require explicit target-platform validation.
 
-## 8. Release gates
+## 8. Runtime and distribution targets
+
+- Development and source execution use Bun.
+- Production CLI releases should provide standalone Bun executables so end users do not need to install Bun.
+- Initial standalone targets: Windows x64/arm64, Linux x64/arm64 (glibc and musl where verified), and macOS x64/arm64.
+- Windows builds should produce a correctly named .exe; Unix-like builds should be executable files usable as `./byv`.
+- Runtime user data, Skills, Plugins, MCP configuration, provider secrets, and project files remain external to the executable unless a resource is intentionally embedded.
+- Native tools such as Git, Docker/Podman, language servers, browser engines, and compiler toolchains remain system dependencies and must be diagnosed by `byv doctor`.
+- Android APK is a separate product packaging target. Bun's documented standalone executable target list does not include Android. A future Android client should use a native Android shell or supported mobile framework and communicate with the byv-agent runtime through a secured local/remote API. Do not label a Bun Linux binary as an Android APK.
+
+See [Build & Distribution](BUILD-AND-DISTRIBUTION.md).
+
+## 9. Release gates
 
 A milestone is complete only when:
 - Its documented behavior is implemented.
@@ -620,7 +634,7 @@ A milestone is complete only when:
 
 See [Roadmap](ROADMAP.md) and [Acceptance Criteria](ACCEPTANCE-CRITERIA.md).
 
-## 9. Out of scope for the initial product
+## 10. Out of scope for the initial product
 
 - A proprietary LLM foundation model.
 - Automatic unrestricted production deployment.
@@ -629,7 +643,7 @@ See [Roadmap](ROADMAP.md) and [Acceptance Criteria](ACCEPTANCE-CRITERIA.md).
 - Mandatory vector database.
 - Claiming full Claude Code parity without public-format conformance and behavioral tests.
 
-## 10. Official reference documents
+## 11. Official reference documents
 
 The compatibility implementation must track the current public documentation and record the tested compatibility baseline in release notes:
 
