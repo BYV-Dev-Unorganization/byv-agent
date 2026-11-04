@@ -2,7 +2,7 @@
 
 **Autonomous, model-agnostic AI coding agent.**
 
-**License model:** BYV Restricted Use License (BYV-RUL) — proprietary and source-available, not open source. External contributions are currently closed. Final user and redistribution permissions will be stated in the root `LICENSE` file before public release.
+**License:** [BYV Restricted Use License (BYV-RUL)](LICENSE) — proprietary, not open source. Official unmodified binaries may be used for personal or internal business purposes. Modification and redistribution are prohibited. Public contributions are currently closed. See [licensing policy](docs/LICENSING.md).
 
 byv-agent is a modular coding-agent harness with configurable OpenAI-compatible and Anthropic Messages providers, a tool-execution runtime, project-aware context management, and Claude Code-compatible extension formats.
 
@@ -38,6 +38,8 @@ byv-agent is a modular coding-agent harness with configurable OpenAI-compatible 
 | [Side Questions](docs/SIDE-QUESTIONS.md) | `/btw` context snapshots, no-tool side answers, concurrency, isolation, overlay, and acceptance criteria |
 | [BYV System Prompt](prompts/BYV-DEV-SYSTEM-PROMPT.md) | Official organization-level default prompt for byv-agent |
 | [Decisions](docs/DECISIONS.md) | Architectural decisions and rationale |
+| [Licensing](docs/LICENSING.md) | BYV-RUL terms, permitted use, restrictions, third-party license policy, and contribution status |
+| [Contributing](CONTRIBUTING.md) | Public contribution status and future invitation policy |
 
 ## UI and agent behavior
 
