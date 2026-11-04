@@ -258,6 +258,11 @@ A release candidate is acceptable only when:
 - Auto-compaction state and result are visible.
 - Message queue and interrupt actions are distinct.
 - Keyboard navigation, resize, paste, scroll, focus, and shutdown work on the supported terminal matrix.
+- Esc follows the documented contextual priority: dismisses popups/overlays first, leaves approval operations blocked when dismissed, requests cancellation for active turns, and never silently discards the draft or exits.
+- Shift+Tab cycles interaction modes in the documented order and does not change permission mode or grant authority.
+- Tab completion, Ctrl+Tab/ Ctrl+Shift+Tab focus navigation, composer history, list navigation, modal controls, and queue/job/file shortcuts behave according to the keymap.
+- Ctrl+C interrupts foreground work and presents an explicit quit confirmation when idle.
+- The effective keymap is discoverable and remappable; unsupported terminal sequences have documented fallbacks.
 - Terminal modes are restored after normal exit, Ctrl+C, render failure, and provider/tool failure.
 - OpenTUI native assets load in source and standalone binaries on each advertised OS/architecture/libc target.
 - Plain line-oriented CLI fallback works when the terminal cannot initialize.
