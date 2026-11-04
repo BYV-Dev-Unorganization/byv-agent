@@ -197,19 +197,6 @@ This document defines observable completion conditions. A feature is not complet
 - Repeated task evaluation detects regressions.
 - Documentation reflects actual support state.
 
-## 17. Release readiness
-
-A release candidate is acceptable only when:
-- All P0 acceptance tests pass.
-- All claimed P1/P2 features pass their feature-specific tests.
-- The supported platform matrix is tested.
-- Upgrade and migration tests pass.
-- Compatibility baseline and limitations are published.
-- Security review has no unresolved critical/high findings.
-- Backup/restore and session recovery are tested.
-- README and user documentation are current.
-
-
 ## 17. Scheduler and integration API acceptance
 
 - One-time and recurring jobs persist according to the configured policy.
@@ -230,3 +217,15 @@ A release candidate is acceptable only when:
 - Diagnostics and diff previews refer to current file revisions.
 - UI clients cannot bypass the permission engine.
 - CLI-only operation remains functional when no editor/web/desktop client is installed.
+
+## 19. Release readiness
+
+A release candidate is acceptable only when:
+- All P0 acceptance tests pass.
+- All claimed P1/P2 features pass their feature-specific tests.
+- The supported platform matrix is tested.
+- Upgrade and migration tests pass.
+- Compatibility baseline and limitations are published.
+- Security review has no unresolved critical/high findings.
+- Backup/restore and session recovery are tested.
+- README and user documentation are current.
