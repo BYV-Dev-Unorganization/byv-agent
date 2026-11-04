@@ -8,7 +8,7 @@ This file records baseline decisions. A decision can be superseded only through 
 
 **Rationale:** Bun provides an integrated TypeScript/JavaScript runtime and can compile applications into standalone executables for documented Windows, Linux, and macOS targets.
 
-**Consequences:** Pin the Bun version. Test dependencies and Node compatibility APIs on Bun. Validate native addons per target. Keep Android APK as a separate native/wrapper deliverable because Android is not in Bun's documented standalone executable target list.
+**Consequences:** Pin the Bun version. Test dependencies and Node compatibility APIs on Bun. Validate native addons per target. Keep the release matrix limited to supported desktop/server executable targets.
 
 ## ADR-002 — Build the core agent loop in byv-agent
 
@@ -83,10 +83,10 @@ This file records baseline decisions. A decision can be superseded only through 
 **Consequences:** Release notes and diagnostics must expose partial/unsupported behavior.
 
 
-## ADR-011 — Standalone Bun executable distribution; Android as a separate client
+## ADR-011 — Standalone Bun executable distribution
 
-**Decision:** Ship the CLI as Bun standalone executables for supported desktop/server operating systems. Treat Android APK as a separate native/wrapper application that connects to a byv-agent runtime through a secured API.
+**Decision:** Ship byv-agent CLI as Bun standalone executables for supported desktop and server operating systems: Windows, Linux, and macOS.
 
-**Rationale:** Bun compile embeds the runtime and supports standalone executable targets across Windows, Linux, and macOS. Its documented target list does not provide an Android APK target.
+**Rationale:** Bun compile embeds the runtime and supports standalone executable targets across the selected desktop/server platforms.
 
-**Consequences:** Release automation builds and tests each target binary. Android is a separate roadmap item and must not be promised as a direct output of `bun build --compile`.
+**Consequences:** Release automation builds and tests each target binary independently. The project does not target Android or APK packaging.
