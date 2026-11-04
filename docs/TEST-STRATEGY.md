@@ -215,4 +215,4 @@ Release gates:
 
 ## 10. Bun compiled artifact tests
 
-For each supported release target, run the standalone binary in a clean environment without Node.js or Bun installed. Verify CLI help, provider config parsing, SQLite initialization, project file loading, Skills discovery, MCP configuration parsing, plugin discovery (without executing plugin code), subprocess behavior, external asset lookup, and graceful shutdown. Keep a separate device-level test plan for Android wrapper builds.
+For each supported release target, run the standalone binary in a clean environment without Node.js or Bun installed. Verify CLI help, provider config parsing, SQLite initialization, project file loading, Skills discovery, MCP configuration parsing, plugin discovery (without executing plugin code), subprocess behavior, external asset lookup, and graceful shutdown.
