@@ -8,7 +8,21 @@
 - Use explicit subsystem contracts and typed events.
 - Keep local CLI execution as the first-class path while defining stable interfaces for container and remote runners.
 
-## 2. Logical topology
+## 2. Runtime foundation: Bun
+
+Bun is the required runtime for source execution and the official build toolchain.
+
+Runtime requirements:
+- Use Bun APIs for first-class runtime operations where they provide a clear benefit: process execution (`Bun.spawn`), file access (`Bun.file`), SQLite (`bun:sqlite`), and build/compile.
+- Use Web-standard APIs (fetch, Request, Response, AbortSignal, streams) where practical for portable provider and HTTP code.
+- Node.js compatibility APIs may be used when necessary, but every such dependency must pass Bun runtime and standalone compile tests.
+- Avoid native Node-API addons unless each supported target is verified.
+- Avoid assuming that a source-level dependency will be bundled correctly; test dynamic imports, package assets, subprocess launch, and plugin loading in compiled builds.
+- Bun is not assumed to exist on end-user machines when distributing a standalone CLI.
+
+The agent core must not depend on a Node.js executable or npm/yarn/pnpm being installed on the target machine.
+
+## 3. Logical topology
 
     User / CLI / Automation API
               |
@@ -44,7 +58,7 @@ Cross-cutting systems:
 - Observability and audit
 - Background job supervisor
 
-## 3. Runtime boundaries
+## 4. Runtime boundaries
 
 ### 3.1 Interaction layer
 
@@ -87,7 +101,7 @@ Implement a common runner contract:
 
 The runner receives a task-scoped execution request and returns a typed result, artifacts, logs, exit status, and resource metadata. It must not receive unrestricted host credentials.
 
-## 4. Core protocol types
+## 5. Core protocol types
 
 Define canonical types before implementing adapters. Names below are conceptual and can be refined in code.
 
@@ -174,7 +188,7 @@ Model capabilities must be explicit and tri-state where appropriate: supported, 
 
 Unknown is not equivalent to supported.
 
-## 5. Agent state machine
+## 6. Agent state machine
 
 Suggested states:
 - idle
@@ -194,7 +208,7 @@ Suggested states:
 
 Valid state transitions must be centralized and tested. A terminal state cannot silently re-enter execution. Resume creates a controlled transition from persisted state.
 
-## 6. Agent loop
+## 7. Agent loop
 
 1. Load session and effective configuration.
 2. Resolve project root and trust status.
@@ -216,7 +230,7 @@ Valid state transitions must be centralized and tested. A terminal state cannot 
 18. Verify task goal and configured checks.
 19. Persist final summary and usage.
 
-## 7. Effort engine design
+## 8. Effort engine design
 
 Canonical levels: auto, low, medium, high, xhigh, max.
 
@@ -240,7 +254,7 @@ The provider adapter maps effort and thinking separately. Record:
 
 Do not assume identical semantics among OpenAI-compatible gateways and Anthropic Messages. Gate values by the selected model.
 
-## 8. Context budgeting and compaction design
+## 9. Context budgeting and compaction design
 
 ### 8.1 Context budget
 
@@ -290,7 +304,7 @@ If summarization, validation, or persistence fails, retain the previous active c
 
 Raw user/assistant messages and tool artifacts remain in persistent history according to retention settings. Compaction is a projection for the active model request, not destructive transcript rewriting.
 
-## 9. Storage architecture
+## 10. Storage architecture
 
 SQLite is the initial durable store. Use migrations and transactions.
 
@@ -324,7 +338,7 @@ Large binary artifacts and full tool outputs may be stored in a content-addresse
 
 Secrets must not be stored in plaintext SQLite. Store secure references or use an OS credential manager/encrypted secret store; environment variables are an acceptable initial non-persistent option.
 
-## 10. Configuration resolution
+## 11. Configuration resolution
 
 Define and document exact precedence. Recommended conceptual order, highest to lowest:
 1. Managed policy that cannot be overridden.
@@ -338,7 +352,7 @@ Security-deny rules should be able to remain restrictive even when a less-truste
 
 Validate all files and show the effective configuration with secrets redacted.
 
-## 11. Concurrency and multi-agent
+## 12. Concurrency and multi-agent
 
 - Main agent owns the user-facing session.
 - Subagents receive scoped task packets and separate context.
@@ -349,7 +363,7 @@ Validate all files and show the effective configuration with secrets redacted.
 - Parent agent verifies integration and runs final tests.
 - Limit nested delegation and maximum concurrent agents.
 
-## 12. Remote execution boundary
+## 13. Remote execution boundary
 
 The control/orchestration process may remain local while execution occurs inside local containers or remote runners. The interface should carry:
 - task ID and runner ID;
@@ -363,7 +377,7 @@ The control/orchestration process may remain local while execution occurs inside
 
 Remote workers authenticate with short-lived credentials. Never transmit provider API keys or unrelated user secrets to a worker unless a scoped task explicitly requires them.
 
-## 13. Observability
+## 14. Observability
 
 All major operations should carry session_id, turn_id, task_id, agent_id, provider_request_id, tool_call_id, and trace_id where applicable.
 
@@ -380,7 +394,7 @@ Log:
 
 Redact secrets, authorization headers, environment values, private reasoning content, and sensitive file contents.
 
-## 14. Testing boundaries
+## 15. Testing boundaries
 
 - Unit tests per subsystem.
 - Contract tests for provider adapters.
