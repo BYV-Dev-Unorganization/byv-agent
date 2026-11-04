@@ -9,7 +9,7 @@ This file contains the always-on working rules for Claude Code. It is not a repl
 - Product: `byv-agent`.
 - Organization: BYV Dev Unorganization (BYV).
 - This repository is being developed from the planning/specification baseline. Inspect the current tree and Git status before assuming a feature or package exists.
-- License model: **BYV Restricted Use License (BYV-RUL)** — proprietary, source-available, and not open source. Users may use only within the final written grant; source modification and derivative works are not permitted without separate BYV authorization.
+- License model: **BYV Restricted Use License (BYV-RUL)** — proprietary and not open source; official unmodified binaries may be used for personal or internal business purposes under BYV-RUL. Users may use official unmodified binaries for personal or internal business purposes; source modification, derivative works, and redistribution are not permitted without separate written BYV authorization.
 - External contributions are closed by default. Do not invite, accept, or merge public contributions unless BYV explicitly authorizes them.
 - A feature described in documentation is **planned**, not implemented. Never claim implementation or support without working code and passing evidence.
 - The creator's real-world identity is undisclosed/stealth. Do not guess, infer, investigate, speculate, or invent a personal identity.
@@ -28,7 +28,7 @@ Before implementation:
 7. Read the relevant section of `docs/ACCEPTANCE-CRITERIA.md` and `docs/TEST-STRATEGY.md` before deciding a feature is complete.
 
 Relevant specification lookup:
-- Licensing and contribution policy: `docs/LICENSING.md` (final root `LICENSE` is created only after BYV confirms all grant terms)
+- Licensing and contribution policy: `docs/LICENSING.md` and the root `LICENSE`
 - Providers/models: `docs/PROVIDERS.md`
 - Claude Code formats and compatibility limits: `docs/CLAUDE-CODE-COMPATIBILITY.md`
 - Configuration and secrets: `docs/CONFIGURATION.md`
@@ -46,7 +46,9 @@ Documentation rules:
 - Do not mark a phase complete until its exit gate and relevant acceptance tests pass.
 - Do not add calendar dates or day/week estimates to the roadmap.
 - Do not substitute MIT, Apache-2.0, GPL, or another open-source license for BYV-RUL.
-- Do not create a final root `LICENSE` file until BYV confirms permitted user classes, commercial use, and binary redistribution terms. Keep the licensing policy in `docs/LICENSING.md` meanwhile.
+- The approved BYV-RUL permits personal and internal business use of official unmodified binaries obtained from BYV-authorized channels; redistribution is not permitted.
+- Do not use MIT, Apache, GPL, or another open-source license for BYV-owned code.
+- External contributions are closed unless BYV explicitly authorizes a separate written arrangement.
 
 ## 3. Technology decisions — mandatory
 
