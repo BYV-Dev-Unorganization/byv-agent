@@ -334,24 +334,110 @@ Jobs view:
 - Show queued message count separately from current turn state.
 - Queueing and interrupting are separate actions.
 
-## 12. Keyboard interactions
+## 12. Keyboard interactions and complete keymap
 
-Initial keymap:
-- Enter: submit.
-- Shift+Enter: newline.
-- Ctrl+C: interrupt active generation/process; if idle, follow documented quit behavior.
-- Esc: close popup/modal; do not silently discard composer content.
-- Ctrl+L: clear visible transcript viewport, not session history.
-- Ctrl+T: toggle Task panel.
-- Ctrl+O: toggle Activity panel.
-- Ctrl+P: model/provider picker.
-- Ctrl+E: effort picker.
-- Ctrl+G: task/goal view.
-- Tab/Shift+Tab: move focus.
-- /: slash-command completion when composer starts empty.
-- ? or F1: help/keymap.
+The keymap is context-aware. A focused modal or completion popup receives navigation keys before the underlying panel. The active bindings must be shown in Help and in `/keymap`. Users can remap bindings, and the UI must detect/report terminal combinations that cannot be distinguished reliably.
 
-Keybindings are configurable and platform-aware. Test Windows Terminal, PowerShell, common macOS terminals, and common Linux terminals.
+### 12.1 Global shortcuts
+
+| Shortcut | Action | Behavior and safety |
+|---|---|---|
+| `Esc` | Contextual dismiss / cancel | Apply the priority order below. Never silently erase the composer draft or exit the application. |
+| `Ctrl+C` | Interrupt / quit flow | During a foreground turn or process, request cancellation and show the confirmed cancellation state. When idle, open the quit confirmation; a second `Ctrl+C` while that confirmation is focused exits. |
+| `Shift+Tab` | Cycle interaction mode | Cycle `Normal → Plan → Auto → Ask → Debug → Review → Normal`. Update the header and show the resulting mode. This does not grant permissions or weaken policy. |
+| `Ctrl+Tab` | Next focus group | Move focus forward between the composer and visible panel groups. |
+| `Ctrl+Shift+Tab` | Previous focus group | Move focus backward between the composer and visible panel groups. |
+| `Ctrl+K` | Command palette | Open the searchable command/action palette. |
+| `Ctrl+F` | Search current view | Search the visible transcript, activity, task, or file list; scope is shown in the search UI. |
+| `Ctrl+L` | Clear viewport | Clear visible transcript rendering only. Preserve the session transcript, task state, and artifacts. |
+| `Ctrl+T` | Toggle Tasks panel | Open/focus the Tasks view; repeat to return to the previous view. |
+| `Ctrl+O` | Toggle Activity panel | Open/focus the Activity view; repeat to return to the previous view. |
+| `Ctrl+G` | Goal/task view | Open the current goal and task tree. |
+| `Ctrl+P` | Provider/model picker | Open provider and model selection. |
+| `Ctrl+E` | Effort picker | Open effort selection and show requested/effective mapping. |
+| `Ctrl+Shift+P` | Permission-mode picker | Open the permission-mode selector. This changes a session preference only; runtime policy and managed restrictions remain authoritative. |
+| `?` or `F1` | Help/keymap | Open contextual help with the effective keybindings for the current terminal. |
+
+### 12.2 Exact Esc priority
+
+When `Esc` is pressed, handle only the first applicable item:
+
+1. Close the topmost autocomplete, slash-command, or command-palette popup and return focus to its owner.
+2. Close the topmost non-approval modal or detail overlay and restore the previous focus.
+3. In an approval dialog, dismiss the dialog while leaving the operation blocked and unresolved. Dismissing is not approval or denial.
+4. During model generation or a foreground agent turn, request cancellation. Preserve streamed output, the draft, queued messages, and task evidence; show cancellation only after the runtime confirms it.
+5. In a panel, clear the current selection or collapse the focused detail view.
+6. Otherwise, do nothing.
+
+An explicit `/exit` or the idle `Ctrl+C` quit-confirmation flow is required to exit. `Esc` must never be overloaded as an unconditional application quit key.
+
+### 12.3 Composer and completion
+
+| Shortcut | Action |
+|---|---|
+| `Enter` | Submit the current message when no completion popup or confirmation control is focused. |
+| `Shift+Enter` | Insert a newline when the terminal reports this combination distinctly. |
+| `Ctrl+J` | Insert a newline as a fallback on terminals that do not distinguish `Shift+Enter`. |
+| `Tab` | Accept the highlighted completion when a completion popup is open; otherwise move focus to the next focusable region. |
+| `Up` / `Down` | Move the caret within the draft. At the first/last visual line, navigate prompt history when no popup is open. |
+| `Ctrl+Up` / `Ctrl+Down` | Navigate prompt history without moving the caret, when supported by the terminal. |
+| `Ctrl+Backspace` | Delete the previous word. |
+| `Ctrl+A` | Select all text in the composer; it must not select the entire transcript. |
+| `Ctrl+Enter` | Submit the draft as an alternate send binding when configured; never treat it as newline. |
+| `/` | Open slash-command suggestions only when the composer is empty. Otherwise insert a literal slash. |
+| `@` | Open path/agent/Skill mention suggestions when the input context supports them; otherwise insert the literal character. |
+
+Prompt history must not replace a non-empty draft without an explicit user action. Large paste operations must never trigger submission.
+
+### 12.4 Panel and list navigation
+
+| Shortcut | Action |
+|---|---|
+| `Tab` / `Shift+Tab` | Move to the next/previous focusable control when focus is inside a panel or modal. In the composer, `Tab` follows the completion rule above; global `Shift+Tab` cycles interaction mode unless a modal explicitly documents a local reverse-navigation binding. |
+| `Ctrl+Tab` / `Ctrl+Shift+Tab` | Move focus between panel groups, forward/backward. |
+| `Up` / `Down` | Move the selected row in a list or task tree. |
+| `Left` / `Right` | Collapse/expand a tree node, or move between columns/tabs where applicable. |
+| `Enter` | Open the selected item or activate the focused control. |
+| `Space` | Toggle the selected checkbox or task-tree expansion where applicable. |
+| `PageUp` / `PageDown` | Scroll the focused panel by one page. |
+| `Home` / `End` | Move to the start/end of the focused list or panel. |
+| `Ctrl+Home` / `Ctrl+End` | Jump to the beginning/end of the conversation transcript. |
+| `Backspace` | Return from an item's detail view to its parent list when that view documents this behavior. |
+
+### 12.5 Modal, approval, and selection controls
+
+- `Up` / `Down`: move between modal options.
+- `Enter`: activate the focused option.
+- `Tab` / `Shift+Tab`: move focus forward/backward within a modal; modal-local behavior takes precedence over global focus navigation.
+- `Space`: toggle a focused checkbox.
+- `Esc`: follow the exact priority and approval behavior in §12.2.
+- In an approval dialog only: `A` = Allow once, `S` = Allow for the displayed narrow session scope, `D` = Deny, `I` = Inspect details. The selected action and scope must be visible before activation. No allow action is preselected.
+- Dismissing an approval dialog with `Esc` leaves the operation blocked and pending; it never approves it.
+
+### 12.6 Tasks, files, jobs, and queue
+
+- Tasks: `Enter` opens task details; `Space` expands/collapses the selected task; `Esc` returns to the task list; destructive or state-changing actions still use the permission/confirmation flow.
+- Files: `Enter` opens the selected file diff; `Esc` returns to the file list. Restore/revert actions require an explicit confirmation and the normal permission gate.
+- Jobs: `Enter` opens job details/logs; `X` requests cancellation of the selected job and requires confirmation when the job may have side effects.
+- Queue: `Enter` inspects the selected message; `Delete` removes it after confirmation; `Ctrl+Up` / `Ctrl+Down` reorders it when queue focus is active. Queue operations never interrupt the active turn.
+
+### 12.7 Mode and permission separation
+
+- `Shift+Tab` cycles the interaction mode in the exact order in §12.1 and is equivalent to selecting the matching mode command.
+- `/normal`, `/plan`, `/auto`, `/ask`, `/debug`, and `/review` remain available as direct mode commands.
+- `Ctrl+Shift+P` and `/permissions` open the permission-mode selector.
+- Interaction mode and permission mode are separate state values. Changing interaction mode must never silently change the permission mode, grant a tool, disable approval, expand a filesystem/network scope, or bypass managed policy.
+- Any permission-mode change that increases autonomy must be clearly displayed and follow the configured confirmation policy.
+
+### 12.8 Terminal compatibility
+
+Key combinations vary across terminal emulators and operating systems. At startup, detect terminal capabilities where possible and expose the effective keymap in Help. If a combination cannot be distinguished, provide a configurable alternative and a discoverable slash-command equivalent. In particular:
+- support `Shift+Enter` only when its sequence is distinguishable; otherwise advertise `Ctrl+J` or the user's configured newline binding;
+- do not assume every terminal reports `Ctrl+Shift+P`, function keys, or modified arrow keys identically;
+- preserve normal terminal paste, selection, and scrollback behavior;
+- test Windows Terminal, PowerShell, common macOS terminals, and common Linux terminals.
+
+Keybindings are configurable and platform-aware. Every default binding must have a conflict test and appear in `/keymap`.
 
 ## 13. Status footer
 
@@ -451,7 +537,10 @@ Use one consistent overlay and focus model rather than separate terminal apps.
 - Approval shows exact operation and risk.
 - Context/compaction reflects measured/estimated values honestly.
 - Diff shows the correct file revision.
-- Keybindings are tested and remappable.
+- Keybindings are tested and remappable, including contextual `Esc`, global `Shift+Tab` mode cycling, focus navigation, and approval-modal keys.
+- `Esc` never silently discards a draft, grants an approval, or exits the application.
+- Interaction-mode cycling never changes permission grants or weakens managed policy.
+- The effective terminal keymap is discoverable through Help and `/keymap`.
 - Terminal restores on every shutdown path.
 - OpenTUI native assets load in source and standalone modes on every advertised target.
 - Plain CLI fallback works.
