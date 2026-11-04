@@ -58,11 +58,28 @@ Cross-cutting systems:
 - Observability and audit
 - Background job supervisor
 
-## 4. Runtime boundaries
+## 4. Prompt assembly boundary
+
+Prompt composition is a dedicated runtime responsibility. Keep the following sources separate and retain provenance:
+- immutable runtime/system policy;
+- managed security policy;
+- BYV Dev Unorganization organization-level behavior prompt;
+- project instructions and scoped rules;
+- active Skills and agent-specific instructions;
+- current user request and approved session context;
+- untrusted repository, browser, MCP, and tool content.
+
+Provider adapters map canonical instruction roles to the provider protocol. Do not depend on a particular vendor's role names. Organization prompt text does not replace permission checks or runtime policy.
+
+The default BYV behavior prompt is versioned at ../prompts/BYV-DEV-SYSTEM-PROMPT.md. Prompt changes require review, version updates, and evaluation against the agent test suite.
+
+## 16. 
 
 ### 3.1 Interaction layer
 
 Owns terminal rendering, input editing, command parsing, interactive prompts, status line, queue display, and non-interactive command invocation. It must not call providers or tools directly; it sends commands to the session controller.
+
+The interactive TUI follows docs/TUI-UX-SPECIFICATION.md and uses OpenTUI Core. The TUI renders typed events from the session controller, task manager, tool dispatcher, and usage/context services. It never infers task completion from assistant prose alone.
 
 ### 3.2 Session controller
 
