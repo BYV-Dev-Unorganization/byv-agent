@@ -203,3 +203,27 @@ Non-interactive mode should support:
 - machine-readable exit codes.
 
 Define stable event schemas and version them. Never emit secrets in machine-readable output.
+
+
+## 12. BITE Terminal UI
+
+The full screen design is documented in [TUI-UX-SPECIFICATION.md](TUI-UX-SPECIFICATION.md).
+
+Primary panels:
+- Conversation;
+- Task;
+- Activity;
+- Files;
+- Agents;
+- Jobs.
+
+Initial keymap:
+- Ctrl+T: Task panel.
+- Ctrl+O: Activity panel.
+- Ctrl+P: provider/model picker.
+- Ctrl+E: effort picker.
+- Ctrl+G: goal/task view.
+- Tab/Shift+Tab: focus navigation.
+- ?: help.
+
+Keybindings must be configurable and must not conflict with terminal/platform defaults without a documented override. Shift+Enter is used for newline only where the terminal sends an unambiguous sequence.
