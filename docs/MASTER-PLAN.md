@@ -194,6 +194,8 @@ Responsibilities:
 - Emit PreCompact and PostCompact lifecycle events and compatible hook payloads.
 - Record trigger reason, old/new token estimates, retained items, removed items, model, and summary metadata.
 - Support compaction preview and user-configured protected content.
+- Support idle compaction as an optional policy, with clear distinction from task execution and session shutdown.
+- Support compaction preview and user-configured protected content.
 - Support context reset only with explicit user intent.
 
 Compaction must be a transactional operation:
@@ -461,6 +463,34 @@ Responsibilities:
 - Effective configuration report without secrets.
 - Debug mode and redacted logs.
 - Feature/capability status.
+
+### 25 — Scheduler and Automation Engine (P2)
+
+Responsibilities:
+- One-time and recurring scheduled tasks.
+- Cron-like schedule parsing with timezone awareness.
+- Session-scoped scheduled reminders/actions where supported.
+- Event-triggered jobs from hooks, webhooks, repository state, or user-defined triggers.
+- Job queue, concurrency limits, deduplication, idempotency keys, and retry policy.
+- Run policy for whether tasks may execute unattended.
+- Approval requirements for side-effecting scheduled jobs.
+- Job history, status, logs, cancellation, and missed-run handling.
+- Explicit resource, token, cost, network, and execution budgets.
+- Prevent overlapping runs unless concurrency is explicitly allowed.
+
+Scheduled execution must not bypass the normal permissions, sandbox, secrets, and audit systems.
+
+### 26 — Integration API and Editor Bridge (P2/P3)
+
+Responsibilities:
+- Local authenticated API for session/task inspection and approved control operations.
+- WebSocket or equivalent event stream for status and logs.
+- Editor/IDE integration interface for diagnostics, file references, diff previews, and task handoff.
+- Optional web dashboard or desktop interface.
+- External automation integrations through explicit authentication and permission scopes.
+- Stable versioned API and backward-compatibility policy.
+
+The CLI remains first-class; no hosted SaaS or desktop client is required for the initial release.
 
 ### 24 — Observability and Evaluation (P0/P1)
 
