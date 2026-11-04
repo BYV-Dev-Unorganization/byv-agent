@@ -88,7 +88,7 @@ Suggested areas:
 - background jobs and scheduler;
 - sideQuestions: enabled state, optional model profile, maximum concurrency, output budget, timeout, visible history limit, and retention;
 - logging and telemetry;
-- UI and status line.
+- UI and status line: theme preset, color mode, semantic token overrides, tool-card visibility, and diff-stat display.
 
 Example:
 
@@ -126,12 +126,21 @@ Example:
         "visibleHistoryLimit": 5,
         "retention": "session"
       },
+      "ui": {
+        "theme": "byv-dark",
+        "colorMode": "auto",
+        "toolCards": {
+          "showLineStats": true,
+          "showDuration": true,
+          "showDiffPreview": true
+        }
+      },
       "telemetry": {
         "enabled": false
       }
     }
 
-The values are examples, not universal defaults. Validate ranges, reject unknown critical values, and migrate schema versions explicitly. Side-question usage is billed/tracked separately and is excluded from the main task's context and transcript.
+The values are examples, not universal defaults. Validate ranges, reject unknown critical values, and migrate schema versions explicitly. Side-question usage is billed/tracked separately and is excluded from the main task's context and transcript. The default theme is BYV Dark; theme and tool-card settings affect presentation only and cannot change execution permissions or tool behavior.
 
 ## 5. Provider and model configuration
 
