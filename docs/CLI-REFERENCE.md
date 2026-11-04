@@ -19,7 +19,7 @@ A published standalone artifact embeds the Bun runtime. Users must not need Node
 - All interactive commands must have documented non-interactive equivalents where practical.
 - Do not require a TUI for scripted usage.
 
-## 2. CLI command tree
+## 3. CLI command tree
 
 ### Main commands
 
@@ -62,7 +62,7 @@ A published standalone artifact embeds the Bun runtime. Users must not need Node
 
 Flags must be validated against the current command. Do not accept a flag and silently ignore it.
 
-## 3. Interactive slash command catalog
+## 4. Interactive slash command catalog
 
 ### Session and mode
 - /help
@@ -130,7 +130,7 @@ Flags must be validated against the current command. Do not accept a flag and si
 
 The slash catalog is a byv-agent UX target. Aliases that mimic Claude Code names must be behavior-tested and must not imply support for behavior that has not been implemented.
 
-## 4. Effort UX
+## 5. Effort UX
 
 - /effort shows current, requested, and effective levels.
 - /effort auto|low|medium|high|xhigh|max sets session default.
@@ -138,7 +138,7 @@ The slash catalog is a byv-agent UX target. Aliases that mimic Claude Code names
 - UI must display whether the level mapped natively, was downgraded, or is unsupported.
 - A model switch recalculates the effective capability.
 
-## 5. Context and compaction UX
+## 6. Context and compaction UX
 
 - /context shows model context limit, estimate, provider-reported usage when available, output reserve, and estimated remaining capacity.
 - /context breakdown shows context segments and provenance.
@@ -147,7 +147,7 @@ The slash catalog is a byv-agent UX target. Aliases that mimic Claude Code names
 - Compaction must never erase session history.
 - Status line shows a compact context meter and compaction state.
 
-## 6. Queue and background UX
+## 7. Queue and background UX
 
 - New messages can be queued while a task runs.
 - An explicit interrupt/steer action is distinct from queueing.
@@ -156,7 +156,7 @@ The slash catalog is a byv-agent UX target. Aliases that mimic Claude Code names
 - Background view shows job ID, agent, command/task, runner, logs, and status.
 - Cancellation must be propagated and confirmed.
 
-## 7. Permission UX
+## 8. Permission UX
 
 A permission prompt displays:
 - exact operation;
@@ -167,7 +167,7 @@ A permission prompt displays:
 
 Never preselect broad or permanent permission grants.
 
-## 8. Status line
+## 9. Status line
 
 Suggested fields:
 - project/workspace;
@@ -182,7 +182,7 @@ Suggested fields:
 
 Allow user customization while protecting secret values.
 
-## 9. Input editor and completion
+## 10. Input editor and completion
 
 - Multiline input.
 - Prompt history.
@@ -194,7 +194,7 @@ Allow user customization while protecting secret values.
 - Shell command mode with visible distinction from agent messages.
 - Keyboard shortcuts documented and configurable.
 
-## 10. Structured output
+## 11. Structured output
 
 Non-interactive mode should support:
 - text;
