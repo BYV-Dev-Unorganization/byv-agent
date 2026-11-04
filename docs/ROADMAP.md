@@ -16,7 +16,7 @@
 Deliverables:
 - Product scope and terminology are approved.
 - Repository, package conventions, closed contribution policy, BYV Restricted Use License (BYV-RUL) model, and CI baseline are established.
-- Final root LICENSE wording is approved after permitted user classes, commercial use, and binary redistribution scope are explicitly decided.
+- Root `LICENSE` states BYV-RUL v1.0: personal and internal business use of official unmodified binaries is permitted; redistribution and modification are prohibited. Public contributions are closed.
 - Architecture decision records are maintained.
 - Strict TypeScript configuration, Bun package/workspace setup, linting, formatting, bun test framework, and build pipeline exist.
 - Pin Bun version and document supported local development platforms.
