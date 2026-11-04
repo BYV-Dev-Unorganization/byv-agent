@@ -6,7 +6,6 @@
 - The released CLI should be a standalone executable that runs without a separately installed Bun or Node.js runtime.
 - Release artifacts are target-specific and tested on a clean machine.
 - Configuration, credentials, Skills, Plugins, MCP servers, project files, Git, language servers, Docker, and browser engines remain external runtime resources unless explicitly embedded.
-- Android APK is treated as a separate native/wrapper application, not as a direct Bun compile target.
 
 ## 2. Bun toolchain
 
@@ -139,28 +138,7 @@ For every release:
 
 Windows releases should plan for Authenticode signing. macOS releases should plan for code signing and notarization when distributing outside local development. Linux releases should include archives and optional package formats after the raw binary is verified.
 
-## 9. Android APK strategy
-
-### 9.1 Important platform boundary
-
-Bun's documented standalone executable targets cover Windows, Linux, and macOS. They do not include Android APK as a direct compile target. Android uses a different application packaging/runtime model, so renaming a Linux binary to .apk is not valid.
-
-### 9.2 Recommended first Android product
-
-Build an Android companion client:
-- Native UI: Kotlin + Jetpack Compose (recommended) or another deliberately selected Android framework.
-- API client: authenticated connection to the byv-agent local daemon or remote VPS/cloud runtime.
-- Transport: HTTPS for remote use and a carefully secured local connection for same-device/network use.
-- Features: chat, session list, task status, approvals, logs, diff preview, model selection, and notifications.
-- Authentication: pairing flow and revocable device token; do not embed server API keys in the APK.
-- Android build: Android Gradle Plugin/Gradle produces the APK/AAB and signs it with Android signing configuration.
-- Bun may still be used for repository scripts, web assets, and development tooling, but it does not compile the APK itself.
-
-### 9.3 Optional future on-device execution
-
-If fully local coding-agent execution on Android is required, treat it as a separate feasibility track. Evaluate Android-supported process/runtime options, filesystem permissions, terminal environment, ABI, background execution limits, battery restrictions, and native dependencies. Do not promise Bun as the on-device Android runtime until an officially supported and tested target exists.
-
-## 10. Installation UX
+## 9. Installation UX
 
 Unix-like systems:
 
@@ -175,10 +153,9 @@ Windows:
 
 An installer may place the binary in a user-selected PATH directory. Do not require administrator rights for a per-user installation.
 
-## 11. Official references
+## 10. Official references
 
 - Bun compiler / standalone executable: https://bun.sh/docs/compiler
 - Bun single-file executables and supported targets: https://bun.sh/docs/bundler/executables
 - Bun AOT compiler status: https://bun.sh/docs/compiler/aot
 - Bun installation and supported host platforms: https://bun.sh/docs/installation
-- Android app build overview: https://developer.android.com/build
