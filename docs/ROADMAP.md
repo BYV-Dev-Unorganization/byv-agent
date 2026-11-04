@@ -20,6 +20,7 @@ Deliverables:
 - Strict TypeScript configuration, Bun package/workspace setup, linting, formatting, bun test framework, and build pipeline exist.
 - Pin Bun version and document supported local development platforms.
 - Add a minimal standalone compile smoke test.
+- Create build and distribution scripts for the first Bun-supported target.
 - Dependency policy and version pinning are documented.
 - Security reporting and secret-handling rules are documented.
 
@@ -273,7 +274,23 @@ Exit gate:
 - A task can run in an isolated runner with scoped workspace and credentials.
 - Remote failures do not corrupt local session or transcript state.
 
-## Phase 15 — Release hardening and ecosystem
+## Phase 15 — Android companion client (separate target)
+
+Deliverables:
+- Android client architecture and UX specification.
+- Secure device pairing and revocable authentication.
+- Session/task/chat/approval/status API client.
+- Kotlin + Jetpack Compose (or another selected native framework).
+- Android Gradle build, signing, APK/AAB packaging, and device tests.
+- Offline, reconnect, notification, and permission behavior.
+
+Exit gate:
+- APK installs and launches on declared Android versions and architectures.
+- Authentication and device revocation work.
+- The client cannot bypass server-side byv-agent permissions.
+- APK release is produced by Android build tooling, not Bun compile.
+
+## Phase 16 — Release hardening and ecosystem
 
 Deliverables:
 - Install and upgrade packaging.
