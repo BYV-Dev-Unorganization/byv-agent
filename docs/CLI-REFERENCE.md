@@ -79,6 +79,10 @@ Flags must be validated against the current command. Do not accept a flag and si
 - /sessions
 - /branch
 - /export
+- /btw <question>
+- /btw history
+- /btw clear
+- /btw cancel [id]
 
 ### Provider and reasoning
 - /provider
@@ -129,6 +133,8 @@ Flags must be validated against the current command. Do not accept a flag and si
 - /jobs
 
 The slash catalog is a byv-agent UX target. Aliases that mimic Claude Code names must be behavior-tested and must not imply support for behavior that has not been implemented.
+
+`/btw <question>` is an interactive, single-response side channel. It can run during an active task, uses a frozen snapshot of already-known context, has no tool access, and is excluded from the main transcript/context/queue. Its provider usage and cost are tracked separately. See [Side Questions](SIDE-QUESTIONS.md).
 
 ## 5. Effort UX
 
@@ -211,6 +217,7 @@ The full screen design is documented in [TUI-UX-SPECIFICATION.md](TUI-UX-SPECIFI
 
 Primary panels:
 - Conversation;
+- Side-question overlay (separate from the main transcript);
 - Task;
 - Activity;
 - Files;
