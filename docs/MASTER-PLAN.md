@@ -195,7 +195,6 @@ Responsibilities:
 - Record trigger reason, old/new token estimates, retained items, removed items, model, and summary metadata.
 - Support compaction preview and user-configured protected content.
 - Support idle compaction as an optional policy, with clear distinction from task execution and session shutdown.
-- Support compaction preview and user-configured protected content.
 - Support context reset only with explicit user intent.
 
 Compaction must be a transactional operation:
@@ -464,6 +463,21 @@ Responsibilities:
 - Debug mode and redacted logs.
 - Feature/capability status.
 
+### 24 — Observability and Evaluation (P0/P1)
+
+Responsibilities:
+- Structured logs.
+- Trace IDs for sessions, turns, provider calls, tool calls, hooks, MCP calls, and subagents.
+- Token/cost/latency metrics.
+- Error categorization.
+- Optional OpenTelemetry export.
+- Local diagnostic bundles with secret redaction.
+- Deterministic unit and integration suites.
+- Compatibility fixtures.
+- Coding task evaluation set.
+- Regression tracking across model/provider changes.
+- User opt-in for telemetry; telemetry off by default unless user explicitly enables it.
+
 ### 25 — Scheduler and Automation Engine (P2)
 
 Responsibilities:
@@ -491,21 +505,6 @@ Responsibilities:
 - Stable versioned API and backward-compatibility policy.
 
 The CLI remains first-class; no hosted SaaS or desktop client is required for the initial release.
-
-### 24 — Observability and Evaluation (P0/P1)
-
-Responsibilities:
-- Structured logs.
-- Trace IDs for sessions, turns, provider calls, tool calls, hooks, MCP calls, and subagents.
-- Token/cost/latency metrics.
-- Error categorization.
-- Optional OpenTelemetry export.
-- Local diagnostic bundles with secret redaction.
-- Deterministic unit and integration suites.
-- Compatibility fixtures.
-- Coding task evaluation set.
-- Regression tracking across model/provider changes.
-- User opt-in for telemetry; telemetry off by default unless user explicitly enables it.
 
 ## 5. Canonical user experience
 
