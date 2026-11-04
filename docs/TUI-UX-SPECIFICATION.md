@@ -70,7 +70,7 @@ Five logical regions:
 2. Conversation: user messages, assistant responses, plans, summaries, collapsible tool cards.
 3. Task panel: goal, checklist, dependencies, progress, child tasks, subagent assignment.
 4. Activity panel: current public activity status, elapsed time, recent tool events, background jobs.
-5. Composer/status footer: multiline input, slash completion, context/usage meter, queue count, keyboard hints.
+5. Composer/status footer: multiline input, slash completion, context/usage meter, queue count, side-question activity, keyboard hints.
 
 Conversation, task, and activity views are projections of the same event/state source. They must not keep separate competing task states.
 
@@ -332,9 +332,27 @@ Jobs view:
 - @path completion can refer to project files.
 - Preserve composer content across resize and panel navigation.
 - Show queued message count separately from current turn state.
-- Queueing and interrupting are separate actions.
+- Queueing, interrupting, and side-question dispatch are separate actions.
+- While a main turn is active, an explicit `/btw <question>` submitted in the composer is sent to the Side Question Service immediately; ordinary prompts retain the normal queue behavior.
 
-## 12. Keyboard interactions and complete keymap
+## 12. Side-question overlay
+
+The `/btw` side-question overlay is a separate surface from the main conversation and task panel. It may open while the main agent is generating, executing a tool, waiting on a process, or coordinating subagents.
+
+- Render the question, captured context revision, provider/model, streaming answer, elapsed time, status, and separately reported token/cost usage where available.
+- The overlay streams independently; it must not block the main event loop or acquire the main turn lock.
+- Dismissing the overlay leaves the side request running and leaves the main task untouched.
+- Preserve the main composer draft and focus state when opening/closing the overlay.
+- Keep a dimmed list of the five most recent side-question exchanges by default; older items remain subject to retention policy.
+- A completed answer may be copied as raw Markdown or explicitly forked into a new session.
+- Mark unavailable information clearly. The overlay must not imply it has inspected new files or run tools.
+- Side-question cards may appear in the Activity view under their own filter, but never as ordinary main-conversation turns.
+
+Overlay keys while focused: `Space`, `Enter`, or `Esc` dismiss; `Up` / `Down` scroll; `c` copies raw Markdown; `f` forks the captured context plus question/answer into a new session; `x` clears earlier exchanges from the visible overlay list. Dismissal does not cancel the side request. Use `/btw cancel [id]` for explicit side-request cancellation.
+
+The runtime contract is defined in [SIDE-QUESTIONS.md](SIDE-QUESTIONS.md).
+
+## 13. Keyboard interactions and complete keymap
 
 The keymap is context-aware. A focused modal or completion popup receives navigation keys before the underlying panel. The active bindings must be shown in Help and in `/keymap`. Users can remap bindings, and the UI must detect/report terminal combinations that cannot be distinguished reliably.
 
@@ -362,7 +380,7 @@ The keymap is context-aware. A focused modal or completion popup receives naviga
 
 When `Esc` is pressed, handle only the first applicable item:
 
-1. Close the topmost autocomplete, slash-command, or command-palette popup and return focus to its owner.
+1. Close the topmost autocomplete, slash-command, command-palette, or side-question overlay and return focus to its owner. Dismissing a side-question overlay does not cancel its request or the main task.
 2. Close the topmost non-approval modal or detail overlay and restore the previous focus.
 3. In an approval dialog, dismiss the dialog while leaving the operation blocked and unresolved. Dismissing is not approval or denial.
 4. During model generation or a foreground agent turn, request cancellation. Preserve streamed output, the draft, queued messages, and task evidence; show cancellation only after the runtime confirms it.
@@ -439,7 +457,7 @@ Key combinations vary across terminal emulators and operating systems. At startu
 
 Keybindings are configurable and platform-aware. Every default binding must have a conflict test and appear in `/keymap`.
 
-## 13. Status footer
+## 14. Status footer
 
 Compact status line fields:
 - provider/model;
@@ -460,7 +478,7 @@ Example:
 
 Distinguish provider-reported usage from local estimates. Unknown cost is not zero.
 
-## 14. Approval UI
+## 15. Approval UI
 
 Display exact tool/action, command or method, working directory, target paths/hosts, risk, reason, grant scope/duration, and actions:
 - Allow once;
@@ -470,13 +488,13 @@ Display exact tool/action, command or method, working directory, target paths/ho
 
 Never preselect broad or permanent approval.
 
-## 15. Context and compaction UI
+## 16. Context and compaction UI
 
 Show context usage meter, exact/estimated source label, context breakdown, auto-compact state, threshold/target, compaction start/end, old/new estimate, and recovery warning.
 
 Never present local token estimation as provider-exact. Compaction must be visible without flooding the transcript.
 
-## 16. Subagents and multi-task UX
+## 17. Subagents and multi-task UX
 
 - Group child tasks under parent task.
 - Show subagent roles and states.
@@ -486,7 +504,7 @@ Never present local token estimation as provider-exact. Compaction must be visib
 - Allow inspect/pause/cancel when supported.
 - Parent remains responsible for integration and verification.
 
-## 17. Overlays and panels
+## 18. Overlays and panels
 
 - Model/provider selector.
 - Effort selector.
@@ -497,6 +515,7 @@ Never present local token estimation as provider-exact. Compaction must be visib
 - MCP server status.
 - Plugin manager.
 - Session picker.
+- Side-question answer overlay.
 - Checkpoint/rewind picker.
 - Task details.
 - Activity details.
@@ -505,7 +524,7 @@ Never present local token estimation as provider-exact. Compaction must be visib
 
 Use one consistent overlay and focus model rather than separate terminal apps.
 
-## 18. Accessibility and terminal compatibility
+## 19. Accessibility and terminal compatibility
 
 - Color always has text/icon equivalent.
 - No-color mode.
@@ -515,7 +534,7 @@ Use one consistent overlay and focus model rather than separate terminal apps.
 - Restore terminal on normal exit, Ctrl+C, exception, and provider failure.
 - Provide plain CLI fallback when TUI is unsupported.
 
-## 19. Performance and telemetry
+## 20. Performance and telemetry
 
 - Render from typed events.
 - Batch high-frequency token deltas.
@@ -525,7 +544,7 @@ Use one consistent overlay and focus model rather than separate terminal apps.
 - Add render diagnostics.
 - Do not log secrets or hidden reasoning.
 
-## 20. Acceptance criteria
+## 21. Acceptance criteria
 
 - Responsive wide/medium/narrow/short layout.
 - Conversation, task, activity, and composer state stay consistent.
@@ -533,7 +552,8 @@ Use one consistent overlay and focus model rather than separate terminal apps.
 - Tool cards show actual start/result/error.
 - Task progress comes from Task Manager events.
 - Completion is distinct from verification.
-- Queue and interrupt are distinct.
+- Queue, interrupt, and `/btw` side questions are distinct.
+- Side questions stream independently, use no tools, do not enter the main transcript/context, and preserve the active task and composer draft.
 - Approval shows exact operation and risk.
 - Context/compaction reflects measured/estimated values honestly.
 - Diff shows the correct file revision.
@@ -546,7 +566,7 @@ Use one consistent overlay and focus model rather than separate terminal apps.
 - Plain CLI fallback works.
 - No API keys, secrets, or hidden reasoning appear in activity logs.
 
-## 21. References
+## 22. References
 
 - https://opentui.com/docs/
 - https://opentui.com/docs/getting-started/runtime-support/
