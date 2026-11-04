@@ -2,6 +2,8 @@
 
 **Autonomous, model-agnostic AI coding agent.**
 
+**License model:** BYV Restricted Use License (BYV-RUL) — proprietary and source-available, not open source. External contributions are currently closed. Final user and redistribution permissions will be stated in the root `LICENSE` file before public release.
+
 byv-agent is a modular coding-agent harness with configurable OpenAI-compatible and Anthropic Messages providers, a tool-execution runtime, project-aware context management, and Claude Code-compatible extension formats.
 
 > **Project status:** Planning / specification. This repository describes the target system; it does not claim that features are implemented.
