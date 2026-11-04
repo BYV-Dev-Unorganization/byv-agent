@@ -217,13 +217,14 @@ Primary panels:
 - Agents;
 - Jobs.
 
-Initial keymap:
-- Ctrl+T: Task panel.
-- Ctrl+O: Activity panel.
-- Ctrl+P: provider/model picker.
-- Ctrl+E: effort picker.
-- Ctrl+G: goal/task view.
-- Tab/Shift+Tab: focus navigation.
-- ?: help.
+Keymap highlights:
+- Esc: dismiss the topmost popup/overlay; during an active turn request cancellation; never silently discard the draft or exit.
+- Ctrl+C: interrupt foreground work; when idle, open quit confirmation.
+- Shift+Tab: cycle interaction mode (Normal, Plan, Auto, Ask, Debug, Review); does not change permission grants.
+- Tab: accept completion or move focus forward; Ctrl+Tab / Ctrl+Shift+Tab move between panel focus groups.
+- Ctrl+K: command palette; Ctrl+F: search current view.
+- Ctrl+T: Tasks; Ctrl+O: Activity; Ctrl+G: goal/task view.
+- Ctrl+P: provider/model; Ctrl+E: effort; Ctrl+Shift+P: permission-mode picker.
+- ?: help; /keymap: show effective bindings.
 
-Keybindings must be configurable and must not conflict with terminal/platform defaults without a documented override. Shift+Enter is used for newline only where the terminal sends an unambiguous sequence.
+The complete context-aware keymap, including approval, composer, panel, queue, file, job, and terminal fallback behavior, is documented in [TUI-UX-SPECIFICATION.md](TUI-UX-SPECIFICATION.md). Keybindings must be configurable and tested against terminal/platform conflicts. Shift+Enter is used for newline only where the terminal sends an unambiguous sequence; Ctrl+J is the documented fallback.
