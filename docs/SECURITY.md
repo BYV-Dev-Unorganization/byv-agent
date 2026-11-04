@@ -101,7 +101,16 @@ Display the exact operation, target, reason, and relevant risk before approval.
 - Protect internal state, provider secrets, SSH material, and credential stores.
 - Record file changes and checkpoint metadata.
 
-## 7. Shell and process security
+## 7. Bun runtime security
+
+- Use Bun as the trusted application runtime.
+- The standalone executable embeds Bun, but this does not sandbox commands started by the agent.
+- Bun.spawn and all subprocess APIs must still pass through the command permission and runner policy.
+- Do not assume the compiled executable hides secrets or protects embedded assets; never embed API keys or private configuration.
+- Verify external config, plugin, Skill, MCP, and project files at runtime using the same trust rules as source execution.
+- Keep Bun version pinned and update it through reviewed security maintenance.
+
+## 8. Shell and process security
 
 - Use argument arrays where possible; shell string execution requires policy checks.
 - Record command, cwd, runner, exit code, duration, and approval context.
@@ -113,7 +122,7 @@ Display the exact operation, target, reason, and relevant risk before approval.
 - Separate direct user shell input from model-generated shell tool calls.
 - Track background process ownership and terminate owned processes on session cleanup when policy says so.
 
-## 8. Network and secret security
+## 9. Network and secret security
 
 - Network access is denied or constrained by default in sandbox profiles.
 - Support host/domain allowlists and optional port restrictions.
@@ -124,7 +133,7 @@ Display the exact operation, target, reason, and relevant risk before approval.
 - Do not return full environment variables to the model.
 - Rotate or revoke scoped credentials after remote tasks where applicable.
 
-## 9. MCP security
+## 10. MCP security
 
 - Treat MCP server configuration as executable trust configuration.
 - Require explicit trust for new project-defined servers where policy requires.
@@ -137,7 +146,7 @@ Display the exact operation, target, reason, and relevant risk before approval.
 - Handle OAuth and refresh tokens through secure storage.
 - Stop owned MCP child processes and clear ephemeral credentials on shutdown.
 
-## 10. Plugin and hook security
+## 11. Plugin and hook security
 
 - Installing a plugin is distinct from trusting and running its code.
 - Verify source, revision, and integrity where practical.
@@ -150,7 +159,7 @@ Display the exact operation, target, reason, and relevant risk before approval.
 - Allow disabling a component or whole plugin without uninstalling it.
 - Support pinning and rollback.
 
-## 11. Prompt injection and untrusted data
+## 12. Prompt injection and untrusted data
 
 - Label repository, browser, MCP, and tool output as untrusted data.
 - Keep untrusted content separate from system/developer policy and user instructions.
@@ -159,7 +168,7 @@ Display the exact operation, target, reason, and relevant risk before approval.
 - Summarize relevant evidence without promoting embedded instructions to authority.
 - Provide safe browsing and MCP modes with constrained tool access.
 
-## 12. Sandbox profiles
+## 13. Sandbox profiles
 
 Initial profiles:
 - local-trusted-workspace;
@@ -180,7 +189,7 @@ Each profile defines:
 
 Docker/Podman containers are not automatically a complete security boundary. Configure mounts, capabilities, user ID, network, seccomp/AppArmor or platform equivalent, and resource limits.
 
-## 13. Audit and recovery
+## 14. Audit and recovery
 
 Audit events include:
 - permission decision;
@@ -196,7 +205,7 @@ Audit events include:
 
 Audit logs must be append-oriented, structured, timestamped, and redacted. Provide export for incident review.
 
-## 14. Security acceptance tests
+## 15. Security acceptance tests
 
 - Path traversal is rejected.
 - Symlink escape is rejected or explicitly approved by policy.
