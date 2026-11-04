@@ -91,6 +91,7 @@ Flags must be validated against the current command. Do not accept a flag and si
 - /usage
 - /cost
 - /stats
+- /theme [byv-dark|byv-light|auto]
 
 ### Context
 - /context
@@ -234,4 +235,4 @@ Keymap highlights:
 - Ctrl+P: provider/model; Ctrl+E: effort; Ctrl+Shift+P: permission-mode picker.
 - ?: help; /keymap: show effective bindings.
 
-The complete context-aware keymap, including approval, composer, panel, queue, file, job, and terminal fallback behavior, is documented in [TUI-UX-SPECIFICATION.md](TUI-UX-SPECIFICATION.md). Keybindings must be configurable and tested against terminal/platform conflicts. Shift+Enter is used for newline only where the terminal sends an unambiguous sequence; Ctrl+J is the documented fallback.
+`/theme` previews or changes the TUI theme without interrupting active work. Built-in presets and the semantic palette are documented in [TUI-UX-SPECIFICATION.md](TUI-UX-SPECIFICATION.md). Tool cards show action-specific badges and verified line statistics where available. The complete context-aware keymap, including approval, composer, panel, queue, file, job, and terminal fallback behavior, is documented in [TUI-UX-SPECIFICATION.md](TUI-UX-SPECIFICATION.md). Keybindings must be configurable and tested against terminal/platform conflicts. Shift+Enter is used for newline only where the terminal sends an unambiguous sequence; Ctrl+J is the documented fallback.
